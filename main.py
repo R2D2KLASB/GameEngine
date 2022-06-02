@@ -43,10 +43,19 @@ class Player():
         print(self)
     
     def Attack(self, player, targetplayer, coordinate):
-        if coordinate in player.targetBoard.coordinates:
-            return False
+        if coordinate in targetplayer.shipBoard.ships:
+            self.targetBoard.hitcoordinates += coordinate
         else:
-            player.targetBoard.coordinates += coordinate
+            self.targetBoard.misscoordinates += coordinate
+    
+    def enemyAttack(self, coordinate):
+        targetship = self.shipBoard.checkCordinateAnyShip(coordinate)
+        if targetship:
+            targetship.hitcoordinates += coordinate
+            return True
+        else:
+            self.shipBoard.misscoordinates += coordinate
+            return False
 
 
 
@@ -83,6 +92,7 @@ class shipBoard(Board):
     def __init__(self, row_size, col_size):
         super().__init__(row_size, col_size)
         self.ships = []
+        self.misscoordinates = []
 
     def validateShipsOrientation(self, coordinates):
         xCoordinates = sorted([coordinate.x for coordinate in coordinates])
@@ -102,8 +112,11 @@ class shipBoard(Board):
                         return False
         return True
 
-    def checkCordinaatAnyShip(self, coordinate):
-        return any(ship.checkCoordinate(coordinate) for ship in self.ships)
+    def checkCordinateAnyShip(self, coordinate):
+        for ship in enumerate(self.ships):
+            if ship.checkCoordinate(coordinate):
+                return ship
+        return False
 
     def __str__(self):
         string = "\n   " + " ".join(chr(x + ord('A')) for x in range(0, self.col_size )) + "\n"
@@ -131,7 +144,8 @@ class Ship():
 class targetBoard(Board):
     def __init__(self, row_size, col_size):
         super().__init__(row_size, col_size)
-        self.coordinates = []
+        self.hitcoordinates = []
+        self.misscoordinates = []
 
 
 
