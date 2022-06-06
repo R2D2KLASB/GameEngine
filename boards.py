@@ -5,6 +5,13 @@ class Board():
         self.row_size = row_size
         self.col_size = col_size
         self.board = [[0] * col_size for x in range(row_size)]    
+
+    def updateBoard(self, coordinates, char):
+        if isinstance(coordinates, list):
+            for coordinate in coordinates:
+                self.board[coordinate.x][coordinate.y] = char
+        elif isinstance(coordinates, Coordinate):
+            self.board[coordinates.x][coordinates.y] = char
        
     def __str__(self):
         string = "\n   " + " ".join(chr(x + ord('A')) for x in range(0, self.col_size )) + "\n"
@@ -35,6 +42,19 @@ class shipBoard(Board):
             if y: return all(y-x==1 for x,y in zip(xCoordinates, xCoordinates[1:]))
         return False
 
+    def createShip(self, coordinates):
+        if self.validateShipsOrientation(coordinates):
+            newShip = Ship(coordinates)
+            if self.validateShipPosition(newShip):
+                self.ships += [newShip]
+                self.updateBoard(coordinates, '-')
+                return True
+            else:
+                print('Error Ship position')
+        else:
+            print('Error ship orientation')
+        return False
+
     def validateShipPosition(self, ship):
         for oldShip in self.ships:
             for oldCoordinate in oldShip.coordinates:
@@ -48,18 +68,6 @@ class shipBoard(Board):
             if ship.checkCoordinate(coordinate):
                 return ship
         return False
-
-    def __str__(self):
-        string = "\n   " + " ".join(chr(x + ord('A')) for x in range(0, self.col_size )) + "\n"
-        for r in range(self.row_size):
-            string += str(r + 1) + ("  " if r <= 8 else " ") +  " ".join(str('-' if self.checkCordinateAnyShip(Coordinate([c+1,r+1])) else self.board[c][r]) for c in range(self.col_size)) + "\n"
-        return string
-
-    def __repr__(self):
-        rows = ["   " + " ".join(chr(x + ord('A')) for x in range(0, self.col_size ))]
-        for r in range(self.row_size):
-            rows += [str(r + 1) + ("  " if r <= 8 else " ") +  " ".join(str('-' if self.checkCordinateAnyShip(Coordinate([c+1,r+1])) else self.board[c][r]) for c in range(self.col_size))]
-        return rows
 
 
 class Ship():

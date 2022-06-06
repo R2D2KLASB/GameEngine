@@ -27,20 +27,11 @@ class Player():
         while len(shipSizes) > 0:
             print('Available Ships: ' + str(shipSizes))
             coordinates = [Coordinate(cor) for cor in input("Ship Coordinates:").upper().split(',')]
-            if self.shipBoard.validateShipsOrientation(coordinates):
-                if len(coordinates) in shipSizes:
-                    newShip = boards.Ship(coordinates)
-                    if self.shipBoard.validateShipPosition(newShip):
-                        self.shipBoard.ships += [newShip]
-                        shipSizes.remove(len(coordinates))
-                        if len(shipSizes) >= 1:
-                            print(self.shipBoard)
-                    else:
-                        print('Error Ship position')
-                else:
-                    print("Error ship size")
+            if len(coordinates) in shipSizes:
+                self.shipBoard.createShip(coordinates)
+                shipSizes.remove(len(coordinates))
             else:
-                print('Error ship orientation')
+                print("Error ship size")
         print(self)
     
     def Attack(self, player, targetplayer, coordinate):

@@ -17,13 +17,13 @@ class CoordinatePlaceError(Exception):
 class Coordinate():
     def __init__(self, coordinate):
         if isinstance(coordinate, list) and self.validateDictCoordinate(coordinate):
-            self.x = coordinate[0]
-            self.y = coordinate[1]
+            self.x = coordinate[0]-1
+            self.y = coordinate[1]-1
             self.xy = [self.x,self.y]
             self.str = chr(ord('A') + self.x-1) + str(self.y)
         elif self.validateStrCoordinate(coordinate):
-            self.x = ord(coordinate[0])-ord('A')+1
-            self.y = int(coordinate[1:])
+            self.x = ord(coordinate[0])-ord('A')
+            self.y = int(coordinate[1:])-1
             self.xy = [self.x,self.y]
             self.str = coordinate
             
