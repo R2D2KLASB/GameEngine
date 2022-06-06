@@ -4,7 +4,7 @@ class Board():
     def __init__(self, row_size, col_size):
         self.row_size = row_size
         self.col_size = col_size
-        self.board = [[0] * col_size for x in range(row_size)]    
+        self.board = [['~'] * col_size for x in range(row_size)]    
 
     def updateBoard(self, coordinates, char):
         if isinstance(coordinates, list):
@@ -29,8 +29,7 @@ class shipBoard(Board):
     def __init__(self, row_size, col_size):
         super().__init__(row_size, col_size)
         self.ships = []
-        self.misscoordinates = []
-        self.hitcoordinates = []
+        self.targetcoordinates = []
 
     def validateShipsOrientation(self, coordinates):
         xCoordinates = sorted([coordinate.x for coordinate in coordinates])
@@ -83,5 +82,4 @@ class Ship():
 class targetBoard(Board):
     def __init__(self, row_size, col_size):
         super().__init__(row_size, col_size)
-        self.hitcoordinates = []
-        self.misscoordinates = []
+        self.coordinates = []
