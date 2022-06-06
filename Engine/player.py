@@ -1,10 +1,10 @@
-from coordinate import *
-import boards
+from .coordinate import *
+from .boards import *
 
 class Player():
     def __init__(self, row_size, col_size, name):
-        self.shipBoard = boards.shipBoard(row_size,col_size)
-        self.targetBoard = boards.targetBoard(row_size,col_size)
+        self.shipBoard = shipBoard(row_size,col_size)
+        self.targetBoard = targetBoard(row_size,col_size)
         self.row_size = row_size
         self.col_size = col_size
         self.name = name

@@ -1,4 +1,4 @@
-from coordinate import Coordinate
+from .coordinate import Coordinate
 
 class Board():
     def __init__(self, row_size, col_size):
