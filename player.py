@@ -2,11 +2,12 @@ from coordinate import *
 import boards
 
 class Player():
-    def __init__(self, row_size, col_size):
+    def __init__(self, row_size, col_size, name):
         self.shipBoard = boards.shipBoard(row_size,col_size)
         self.targetBoard = boards.targetBoard(row_size,col_size)
         self.row_size = row_size
         self.col_size = col_size
+        self.name = name
         self.setupBoard()
 
     def setupBoard(self):
