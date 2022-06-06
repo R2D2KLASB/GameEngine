@@ -15,7 +15,6 @@ class GameEngine():
         self.nextPlayer('player2')
         print('Player 2 Setup Ships')
         self.player2 = Player(self.row_size, self.col_size, 'player2')
-        self.nextPlayer('player1')
 
     def playerTurn(self, player, targetPlayer):
         print(player.name + ":")
@@ -29,7 +28,6 @@ class GameEngine():
                 pass
         clear()
         print(player)
-        self.nextPlayer(targetPlayer.name)
 
     def nextPlayer(self, name=False):
         input('Next?')
@@ -38,9 +36,14 @@ class GameEngine():
         clear()
 
     def play(self):
-        while True:
+        while not self.player1.checkDefeated():
+            self.nextPlayer(self.player1.name)
             self.playerTurn(self.player1, self.player2)
+            if self.player2.checkDefeated():
+                break
+            self.nextPlayer(self.player2.name)
             self.playerTurn(self.player2, self.player1)
+        print(('Player 1' if self.player2.checkDefeated() else 'Player2') + ' WON!')
 
 
 

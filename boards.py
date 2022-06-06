@@ -73,11 +73,19 @@ class Ship():
     def __init__(self, coordinates):
         self.coordinates = coordinates
         self.size = len(coordinates)
+        self.hits = 0
+        self.defeated = False
 
     def checkCoordinate(self, coordinate):
         if coordinate in self.coordinates:
             return True
         return False 
+
+    def hit(self):
+        self.hits += 1
+        if self.hits == self.size:
+            self.defeated = True
+
 
 class targetBoard(Board):
     def __init__(self, row_size, col_size):

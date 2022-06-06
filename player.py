@@ -11,7 +11,7 @@ class Player():
         self.setupBoard()
 
     def setupBoard(self):
-        shipSizes = [2]
+        shipSizes = [2, 3]
         print(self.shipBoard)
         while len(shipSizes) > 0:
             print('Available Ships: ' + str(shipSizes))
@@ -41,7 +41,9 @@ class Player():
     def enemyAttack(self, coordinate):
         if coordinate not in self.shipBoard.targetcoordinates:
             self.shipBoard.targetcoordinates += [coordinate]
-            if self.shipBoard.checkCordinateAnyShip(coordinate):
+            hittedShip = self.shipBoard.checkCordinateAnyShip(coordinate)
+            if hittedShip:
+                hittedShip.hit()
                 self.shipBoard.updateBoard(coordinate, 'x')
                 return True
             else:
@@ -49,6 +51,9 @@ class Player():
                 return False
         else:
             raise CoordinatePlaceError(coordinate[0])
+
+    def checkDefeated(self):
+        return all(ship.defeated for ship in self.shipBoard.ships)
         
 
     def __str__(self):
