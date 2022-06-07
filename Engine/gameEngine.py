@@ -8,22 +8,11 @@ class GameEngine():
         self.col_size = col_size
 
     def setupPlayers(self):
-        self.player1 = False
-        self.player2 = False
-        while self.player1 is False:
-            try:
-                self.player1 = Player(self.row_size, self.col_size, 'player1')
-            except Exception as e:
-                print(e)
-                pass
+        self.player1 = Player(self.row_size, self.col_size, 'player1')
+
         self.nextPlayer('player2')
-        while self.player2 is False:
-            try:
-                self.player2 = Player(self.row_size, self.col_size, 'player2')
-            except Exception as e:
-                clear()
-                print(e)
-                pass
+
+        self.player2 = Player(self.row_size, self.col_size, 'player2')
 
     def playerTurn(self, player, targetPlayer):
         result = False
@@ -39,7 +28,7 @@ class GameEngine():
         print(player)
 
     def nextPlayer(self, name=False):
-        input('Next?')
+        input('\nNext?')
         clear()
         input((name if name else 'player') + ' ready?')
         clear()
