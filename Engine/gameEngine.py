@@ -21,6 +21,7 @@ class GameEngine():
         print(player)
         print('Attack coordinate:')
         result = False
+        # NEED BETTER ERROR HANDLING
         while result is False:
             try:
                 result = player.Turn(targetPlayer)
