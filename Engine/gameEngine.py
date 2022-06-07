@@ -1,8 +1,6 @@
 from .player import Player
-import os
+from .error import *
 
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
 
 class GameEngine():
     def __init__(self, row_size, col_size):
@@ -10,22 +8,32 @@ class GameEngine():
         self.col_size = col_size
 
     def setupPlayers(self):
-        print('Player 1 Setup Ships')
-        self.player1 = Player(self.row_size, self.col_size, 'player1')
+        self.player1 = False
+        self.player2 = False
+        while self.player1 is False:
+            try:
+                self.player1 = Player(self.row_size, self.col_size, 'player1')
+            except Exception as e:
+                print(e)
+                pass
         self.nextPlayer('player2')
-        print('Player 2 Setup Ships')
-        self.player2 = Player(self.row_size, self.col_size, 'player2')
+        while self.player2 is False:
+            try:
+                self.player2 = Player(self.row_size, self.col_size, 'player2')
+            except Exception as e:
+                clear()
+                print(e)
+                pass
 
     def playerTurn(self, player, targetPlayer):
-        print(player.name + ":")
-        print(player)
-        print('Attack coordinate:')
         result = False
         # NEED BETTER ERROR HANDLING
         while result is False:
             try:
                 result = player.Turn(targetPlayer)
-            except:
+            except Exception as e:
+                clear()
+                print(e)
                 pass
         clear()
         print(player)

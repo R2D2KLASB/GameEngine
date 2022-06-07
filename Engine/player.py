@@ -1,5 +1,6 @@
 from .coordinate import *
 from .boards import *
+from .error import *
 
 class Player():
     def __init__(self, row_size, col_size, name):
@@ -12,22 +13,29 @@ class Player():
 
     def setupBoard(self):
         shipSizes = [2, 3]
-        print(self.shipBoard)
         while len(shipSizes) > 0:
-            print('Available Ships: ' + str(shipSizes))
-            coordinates = [Coordinate(cor, self.row_size, self.col_size) for cor in input("Ship Coordinates:").upper().split(',')]
-            if len(coordinates) in shipSizes:
-                if self.shipBoard.createShip(coordinates):
-                    shipSizes.remove(len(coordinates))
+            result = False
+            while result is False:
+                try:
+                    print('\n' + self.name + ' Setup Ships')
                     print(self.shipBoard)
-                else:
-                    print('Try again')
-            else:
-                print("Error ship size")
+                    print('Available Ships: ' + str(shipSizes))
+                    coordinates = [Coordinate(cor, self.row_size, self.col_size) for cor in input("Ship Coordinates:").upper().split(',')]
+                    if len(coordinates) in shipSizes:
+                        result = self.shipBoard.createShip(coordinates)
+                        shipSizes.remove(len(coordinates))
+                        clear()
+                    else:
+                        raise ErrorMessage("Error ship size")
+                except Exception as e:
+                    clear()
+                    print(e)
+                    pass
         print(self)
 
     def Turn(self, targetPlayer):
-        coordinate = Coordinate(input("Ship Coordinates:").upper(), self.row_size, self.col_size)
+        print(self)
+        coordinate = Coordinate(input("Attack Coordinate:").upper(), self.row_size, self.col_size)
         self.Attack(targetPlayer, coordinate)
     
     def Attack(self, targetPlayer, coordinate):
@@ -38,20 +46,18 @@ class Player():
             else:
                 self.targetBoard.updateBoard(coordinate, 'o')
             return True
-        raise CoordinatePlaceError(coordinate)
+        raise ErrorMessage('Target Coordinate already used')
     
     def enemyAttack(self, coordinate):
-        if coordinate not in self.shipBoard.targetcoordinates:
-            self.shipBoard.targetcoordinates += [coordinate]
-            hittedShip = self.shipBoard.checkCordinateAnyShip(coordinate)
-            if hittedShip:
-                hittedShip.hit()
-                self.shipBoard.updateBoard(coordinate, 'x')
-                return True
-            else:
-                self.shipBoard.updateBoard(coordinate, 'o')
-                return False
-        raise CoordinatePlaceError(coordinate)
+        self.shipBoard.targetcoordinates += [coordinate]
+        hittedShip = self.shipBoard.checkCordinateAnyShip(coordinate)
+        if hittedShip:
+            hittedShip.hit()
+            self.shipBoard.updateBoard(coordinate, 'x')
+            return True
+        else:
+            self.shipBoard.updateBoard(coordinate, 'o')
+            return False
 
     def checkDefeated(self):
         return all(ship.defeated for ship in self.shipBoard.ships)
@@ -61,7 +67,7 @@ class Player():
         
 
     def __str__(self):
-        string = 'Shipboard:                      Targetboard:\n'
+        string = '\n' + self.name + ':\n\nShipboard:                      Targetboard:\n'
         for row in range(self.row_size+1):
             string += self.shipBoard.__repr__()[row] + "\t\t" + self.targetBoard.__repr__()[row] + "\n"
         string += 'Ships alive: ' + str(self.checkAlive())
@@ -70,5 +76,6 @@ class Player():
 
     def __repr__(self):
         return self.__str__()
+
 
 

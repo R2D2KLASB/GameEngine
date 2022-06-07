@@ -1,5 +1,5 @@
 from .coordinate import Coordinate
-
+from .error import *
 class Board():
     def __init__(self, row_size, col_size):
         self.row_size = row_size
@@ -46,13 +46,11 @@ class shipBoard(Board):
             newShip = Ship(coordinates)
             if self.validateShipPosition(newShip):
                 self.ships += [newShip]
-                self.updateBoard(coordinates, '-')
+                self.updateBoard(coordinates, '∎')
                 return True
             else:
-                print('Error Ship position')
-        else:
-            print('Error ship orientation')
-        return False
+                raise ErrorMessage('Error Ship position')
+        raise ErrorMessage('Error ship orientation')
 
     def validateShipPosition(self, ship):
         for oldShip in self.ships:

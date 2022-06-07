@@ -1,18 +1,4 @@
-
-class CoordinateValueError(Exception):
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return '{} is invalid input, CoordinateValue can only accept ' \
-               'A string with first index an char followed by an integer or a dict with two integers'.format(self.value)
-
-class CoordinatePlaceError(Exception):
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return '{} is invalid input, The Coordinate Place is not allowed '.format(self.value)
+from .error import *
 
 class Coordinate():
     def __init__(self, coordinate, row_size, col_size):
