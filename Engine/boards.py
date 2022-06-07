@@ -4,7 +4,7 @@ class Board():
     def __init__(self, row_size, col_size):
         self.row_size = row_size
         self.col_size = col_size
-        self.board = [['~'] * col_size for x in range(row_size)]    
+        self.board = [['~'] * col_size for x in range(row_size+1)]    
 
     def updateBoard(self, coordinates, char):
         if isinstance(coordinates, list):

@@ -62,7 +62,7 @@ class Player():
 
     def __str__(self):
         string = 'Shipboard:                      Targetboard:\n'
-        for row in range(self.row_size):
+        for row in range(self.row_size+1):
             string += self.shipBoard.__repr__()[row] + "\t\t" + self.targetBoard.__repr__()[row] + "\n"
         string += 'Ships alive: ' + str(self.checkAlive())
         return string
