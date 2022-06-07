@@ -4,9 +4,9 @@ class Coordinate():
     def __init__(self, coordinate, row_size, col_size):
         self.row_size = row_size
         self.col_size = col_size
-        if isinstance(coordinate, list) and self.validateDictCoordinate(coordinate):
-            self.x = coordinate[0]-1
-            self.y = coordinate[1]-1
+        if isinstance(coordinate, list) and self.validateListCoordinate(coordinate):
+            self.x = coordinate[0]
+            self.y = coordinate[1]
             self.xy = [self.x,self.y]
             self.str = chr(ord('A') + self.x-1) + str(self.y)
         elif self.validateStrCoordinate(coordinate):
@@ -27,7 +27,7 @@ class Coordinate():
         else:
             raise CoordinatePlaceError(coordinate[0])
     
-    def validateDictCoordinate(self, coordinate):
+    def validateListCoordinate(self, coordinate):
         if len(coordinate) == 2:
             if isinstance(coordinate[0], int) and isinstance(coordinate[1], int):
                 if coordinate[0] >= 0 and coordinate[0] < self.row_size:
