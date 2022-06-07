@@ -19,6 +19,7 @@ class Player():
             if len(coordinates) in shipSizes:
                 if self.shipBoard.createShip(coordinates):
                     shipSizes.remove(len(coordinates))
+                    print(self.shipBoard)
                 else:
                     print('Try again')
             else:
@@ -26,7 +27,7 @@ class Player():
         print(self)
 
     def Turn(self, targetPlayer):
-        coordinate = Coordinate(input("Ship Coordinates:", self.row_size, self.col_size).upper())
+        coordinate = Coordinate(input("Ship Coordinates:").upper(), self.row_size, self.col_size)
         self.Attack(targetPlayer, coordinate)
     
     def Attack(self, targetPlayer, coordinate):
