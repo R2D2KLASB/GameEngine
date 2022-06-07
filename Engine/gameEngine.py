@@ -1,6 +1,7 @@
 from .player import Player
 from .error import *
-
+from .ai import AIPlayer
+import os
 
 class GameEngine():
     def __init__(self, row_size, col_size):
@@ -12,7 +13,9 @@ class GameEngine():
 
         self.nextPlayer('player2')
 
-        self.player2 = Player(self.row_size, self.col_size, 'player2')
+        print('Player 2 Setup Ships')
+        self.player2 = AIPlayer(self.row_size, self.col_size, 'player2')
+
 
     def playerTurn(self, player, targetPlayer):
         result = False

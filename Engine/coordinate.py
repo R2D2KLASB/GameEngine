@@ -30,8 +30,8 @@ class Coordinate():
     def validateDictCoordinate(self, coordinate):
         if len(coordinate) == 2:
             if isinstance(coordinate[0], int) and isinstance(coordinate[1], int):
-                if coordinate[0] > 0 and coordinate[0] <= row_size:
-                    if coordinate[1] > 0 and coordinate[1] <= col_size:
+                if coordinate[0] >= 0 and coordinate[0] < self.row_size:
+                    if coordinate[1] >= 0 and coordinate[1] < self.col_size:
                         return True
                     else:
                         raise CoordinatePlaceError(coordinate[1])
