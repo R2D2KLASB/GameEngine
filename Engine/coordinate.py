@@ -15,7 +15,9 @@ class CoordinatePlaceError(Exception):
         return '{} is invalid input, The Coordinate Place is not allowed '.format(self.value)
 
 class Coordinate():
-    def __init__(self, coordinate):
+    def __init__(self, coordinate, row_size, col_size):
+        self.row_size = row_size
+        self.col_size = col_size
         if isinstance(coordinate, list) and self.validateDictCoordinate(coordinate):
             self.x = coordinate[0]-1
             self.y = coordinate[1]-1
@@ -28,9 +30,9 @@ class Coordinate():
             self.str = coordinate
             
     def validateStrCoordinate(self, coordinate):
-        if ord(coordinate[0]) >= ord('A') and ord(coordinate[0]) < ord('A') + 10:
+        if ord(coordinate[0]) >= ord('A') and ord(coordinate[0]) < ord('A') + self.row_size:
             if coordinate[1:].isnumeric():
-                if int(coordinate[1:]) > 0 and int(coordinate[1:]) <= 10:
+                if int(coordinate[1:]) > 0 and int(coordinate[1:]) <= self.row_size:
                     return True
                 else:
                     raise CoordinatePlaceError(coordinate[1:])
@@ -42,8 +44,8 @@ class Coordinate():
     def validateDictCoordinate(self, coordinate):
         if len(coordinate) == 2:
             if isinstance(coordinate[0], int) and isinstance(coordinate[1], int):
-                if coordinate[0] > 0 and coordinate[0] <= 10:
-                    if coordinate[1] > 0 and coordinate[1] <= 10:
+                if coordinate[0] > 0 and coordinate[0] <= row_size:
+                    if coordinate[1] > 0 and coordinate[1] <= col_size:
                         return True
                     else:
                         raise CoordinatePlaceError(coordinate[1])
