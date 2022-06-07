@@ -1,36 +1,33 @@
 from .boards import *
 from .player import *
+import time
 
 import random
 class AIPlayer(Player):
     def __init__(self, row_size, col_size, name):
         super().__init__(row_size, col_size, name)
-        self.ships = [5, 4, 3, 3, 2]
 
     def setupBoard(self):
-        shipSizes = [5, 4, 3, 3, 2]
-        print(self.shipBoard)
+        shipSizes = [4, 3, 2]
         while len(shipSizes) > 0:
             result = False
             while result is False:
                 try:
-                    print('Available Ships: ' + str(shipSizes))
                     orientation = random.randint(0,1)
                     coordinates = []
                     if orientation == 0:
-                        x = random.randint(0,(9-shipSizes[0]))
-                        y = random.randint(0,9)
+                        x = random.randint(0,(self.row_size-1-shipSizes[0]))
+                        y = random.randint(0,self.col_size-1)
                         for i in range(shipSizes[0]):
                             cor = [x,y+i]
                             coordinates+=[Coordinate(cor, self.row_size, self.col_size)]
                     else:
-                        x = random.randint(0,9)
-                        y = random.randint(0,(9-shipSizes[0]))
+                        x = random.randint(0,self.row_size-1)
+                        y = random.randint(0,(self.col_size-1-shipSizes[0]))
                         for i in range(shipSizes[0]):
                             cor = [x+i,y]
                             coordinates+=[Coordinate(cor, self.row_size, self.col_size)]
                     if len(coordinates) in shipSizes:
-                        print(coordinates)
                         result = self.shipBoard.createShip(coordinates)
                         if result:
                             shipSizes.remove(len(coordinates))
@@ -38,18 +35,31 @@ class AIPlayer(Player):
                     
                 except Exception as e:
                     clear()
-                    print(e)
+                    # print(e)
                     pass
-        print(self)
             
 
     
     def Turn(self, targetPlayer):
-        x = random.randint(0,10)
-        y = random.randint(0,10)
-        cor = [x,y]
-        coordinate = Coordinate(cor, self.row_size, self.col_size)
-        self.Attack(targetPlayer, coordinate)
+        result = False
+        while result is False:
+            try:
+                x = random.randint(0,self.row_size-1)
+                y = random.randint(0,self.col_size-1)
+                cor = [x,y]
+                coordinate = Coordinate(cor, self.row_size, self.col_size)
+                while coordinate in self.targetBoard.coordinates:
+                    x = random.randint(0,self.row_size-1)
+                    y = random.randint(0,self.col_size-1)
+                    cor = [x,y]
+                    coordinate = Coordinate(cor, self.row_size, self.col_size)
+                result = self.Attack(targetPlayer, coordinate)
+            except Exception as e:
+                    print(e)
+                    time.sleep(5)
+                    pass
+                    clear()
+        clear()
             
             
 
