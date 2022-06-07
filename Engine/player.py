@@ -12,7 +12,7 @@ class Player():
         self.setupBoard()
 
     def setupBoard(self):
-        shipSizes = [2, 3]
+        shipSizes = [4,3,2]
         while len(shipSizes) > 0:
             result = False
             while result is False:
@@ -34,9 +34,18 @@ class Player():
         print(self)
 
     def Turn(self, targetPlayer):
-        print(self)
-        coordinate = Coordinate(input("Attack Coordinate:").upper(), self.row_size, self.col_size)
-        self.Attack(targetPlayer, coordinate)
+        result = False
+        while result is False:
+            try:
+                print(self)
+                coordinate = Coordinate(input("Attack Coordinate:").upper(), self.row_size, self.col_size)
+                result = self.Attack(targetPlayer, coordinate)
+                clear()
+                print(self)
+            except Exception as e:
+                clear()
+                print(e)
+                pass
     
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
