@@ -55,6 +55,8 @@ class Player():
             else:
                 self.targetBoard.updateBoard(coordinate, 'o')
             return True
+        else:
+            return False
         raise ErrorMessage('Target Coordinate already used')
     
     def enemyAttack(self, coordinate):
