@@ -4,17 +4,19 @@ from .ai import AIPlayer
 import os
 import time
 class GameEngine():
-    def __init__(self, row_size, col_size):
-        self.row_size = row_size
-        self.col_size = col_size
+    def __init__(self, row_col_size, intern_publisher):
+        self.row_size = row_col_size[0]
+        self.col_size = row_col_size[1]
+        self.intern_publisher = intern_publisher
 
     def setupPlayers(self):
-        self.player1 = AIPlayer(self.row_size, self.col_size, 'aiplayer1')
+        self.player1 = Player(self.row_size, self.col_size, self.intern_publisher, 'player1')
 
         # self.nextPlayer('player2')
 
         print('Player 2 Setup Ships')
-        self.player2 = AIPlayer(self.row_size, self.col_size, 'aiplayer2')
+        self.player2 = AIPlayer(self.row_size, self.col_size, self.intern_publisher, 'aiplayer2')
+        self.intern_publisher.send('READY')
 
     def nextPlayer(self, name=False):
         input('\nNext?')

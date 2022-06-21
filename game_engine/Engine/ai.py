@@ -4,8 +4,19 @@ import time
 
 import random
 class AIPlayer(Player):
-    def __init__(self, row_size, col_size, name):
-        super().__init__(row_size, col_size, name)
+    def __init__(self, row_size, col_size, intern_publisher, name):
+        super().__init__(row_size, col_size, intern_publisher, name)
+
+
+    def Attack(self, targetPlayer, coordinate):
+        if coordinate not in self.targetBoard.coordinates:
+            self.targetBoard.coordinates += [coordinate]
+            if targetPlayer.enemyAttack(coordinate):
+                self.targetBoard.updateBoard(coordinate, 'x')
+            else:
+                self.targetBoard.updateBoard(coordinate, 'o')
+            return True
+        raise ErrorMessage('Target Coordinate already used')
 
     def setupBoard(self):
         shipSizes = [4, 3, 2]
@@ -35,7 +46,7 @@ class AIPlayer(Player):
                     
                 except Exception as e:
                     clear()
-                    # print(e)
+                    print(e)
                     pass
             
 
