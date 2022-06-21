@@ -5,11 +5,15 @@ import time
 import random
 class AIPlayer(Player):
     def __init__(self, row_size, col_size, name):
-        super().__init__(row_size, col_size, name)
-        self.lastMoves = 0  # laatste hit: raak etc
+        self.lastMove = 0  # laatste hit: raak etc
         self.hittedMoveStart = None  # coord van geraakte hit
         self.hittedMoveCurrent = None  # hit rondom start hit
         self.possibleMoves = [] # List with al the moves that can be done
+        self.aiMoves = []  # moves the AI should do with random
+        self.smallestShip = 2 #smallest ship the opponend can still have
+        self.enemyShipsAlive = 0 # number of ships killed
+        self.currentKilling = [] #when hitting a ship, this keeps track of the killed part
+        super().__init__(row_size, col_size, name)
 
     #Do a move against the other player
     def Attack(self, targetPlayer, coordinate):
@@ -55,112 +59,134 @@ class AIPlayer(Player):
                     clear()
                     pass
 
-    def Turn(self, targetPlayer):
-        result = -1
-        if self.lastMoves == 0:
-            while result == -1: # Loop until a valid move is done
-                try:
-                    x = random.randint(0, self.row_size - 1) #random x coord
-                    y = random.randint(0, self.col_size - 1) #random y coord
-                    cor = [x, y]
-                    coordinate = Coordinate(cor, self.row_size, self.col_size)
-                    while coordinate in self.targetBoard.coordinates:
-                        x = random.randint(0, self.row_size - 1)
-                        y = random.randint(0, self.col_size - 1)
-                        cor = [x, y]
-                        coordinate = Coordinate(cor, self.row_size, self.col_size)
-                    result = self.Attack(targetPlayer, coordinate)
-                    if result == 1:
-                        print(str(x) + ", " + str(y) + "," + str(self.row_size))
-                        self.lastMoves = 1
-                        self.hittedMoveStart = coordinate
-                        self.hittedMoveCurrent = coordinate
-                        return
-                    if result == 0:
-                        return
+        for i in range(self.row_size-1):
+            for j in range(self.row_size-1):
+                self.possibleMoves.append([i,j])
+                self.aiMoves.append([i,j])
 
-                except Exception as e:
-                    print("FOUT in random")
-                    time.sleep(5)
-                    pass
-                    clear()
-            clear()
+    def Turn(self, targetPlayer):
+
+        if self.lastMove == 0:
+            cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)] #random coord
+            coordinate = Coordinate(cor, self.row_size, self.col_size)
+            self.enemyShipsAlive = targetPlayer.checkAlive()
 
         #Hitting the rest of the ship
-        if self.lastMoves == 1:
+        if self.lastMove == 1:
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(x+1) > self.row_size-1:
-                self.lastMoves = 2
+                self.lastMove = 2
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x+1, y], self.row_size, self.row_size)
-                result = self.Attack(targetPlayer, coordinate)
-                if result == 1:
-                    self.hittedMoveCurrent = coordinate
-                    return
-                if result == -1:
-                    self.lastMoves = 2
-                    return self.Turn(targetPlayer)
-                if result == 0:
-                    self.lastMoves = 2
-                    self.hittedMoveCurrent = self.hittedMoveStart
-                    return
 
-
-        if self.lastMoves == 2:
+        if self.lastMove == 2:
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(x-1) < 0:
-                self.lastMoves = 3
+                self.lastMove = 3
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x-1,y], self.row_size, self.row_size)
-                result = self.Attack(targetPlayer, coordinate)
-                if result == 1:
-                    self.hittedMoveCurrent = coordinate
-                if result == -1:
-                    self.lastMoves = 3
-                    return self.Turn(targetPlayer)
-                if result == 0:
-                    self.lastMoves = 3
-                    self.hittedMoveCurrent = self.hittedMoveStart
-                return
 
-        if self.lastMoves == 3:
+# bord aflopen, elke hit die mis is kan je [x] vakjes er naast uitsluiten, [x] is hierin het kortste ship van je tegenstander, schuin door t bord heen lopen
+#oneven getallen
+        if self.lastMove == 3:
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(y+1) > self.row_size-1:
-                self.lastMoves = 4
+                self.lastMove = 4
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x,y+1], self.row_size, self.row_size)
-                result = self.Attack(targetPlayer, coordinate)
-                if result == 1:
-                    self.hittedMoveCurrent = coordinate
-                if result == -1:
-                    self.lastMoves = 4
-                    return self.Turn(targetPlayer)
-                if result == 0:
-                    self.lastMoves = 4
-                    self.hittedMoveCurrent = self.hittedMoveStart
-                return
 
-        if self.lastMoves == 4:
+        if self.lastMove == 4:
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(y-1) < 0:
-                self.lastMoves = 0
+                self.lastMove = 0
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x,y-1], self.row_size, self.row_size)
-                result = self.Attack(targetPlayer, coordinate)
-                if result == 1:
-                    self.hittedMoveCurrent = coordinate
-                if result == -1:
-                    self.lastMoves = 0
-                    return self.Turn(targetPlayer)
-                if result == 0:
-                    self.lastMoves = 0
-                    self.hittedMoveCurrent = self.hittedMoveStart
-                return
+
+        #Check if a coordinate is valid, else retry
+        if not [coordinate.x,coordinate.y] in self.possibleMoves:
+            if not self.lastMove == 4:
+                self.lastMove += 1
+                return self.Turn(targetPlayer)
+            else:
+                self.lastMove = 0
+                return self.Turn(targetPlayer)
+            return self.Turn(targetPlayer)
+        #Do the move
+        result = self.Attack(targetPlayer, coordinate)
+
+        #Previous shot was no hit
+        if self.lastMove == 0:
+            self.hittedMoveStart = coordinate
+            self.hittedMoveCurrent = coordinate
+
+            #current shot hitted
+            if result == 1:
+                self.lastMove = 1
+        #Current shot hit
+        if result == 1:
+            self.hittedMoveCurrent = coordinate
+            self.currentKilling.append([coordinate.x, coordinate.y])
+
+            #if the ship is down
+            if self.enemyShipsAlive > targetPlayer.checkAlive():
+                self.lastMove = 0
+                #remove empty coords drom possible coordinates
+                for coord in self.currentKilling:
+                    if [coord[0] + 1, coord[1]] in self.possibleMoves:
+                        self.possibleMoves.remove([coord[0] + 1, coord[1]])
+                        if [coord[0] + 1, coord[1]] in self.aiMoves:
+                            self.aiMoves.remove([coord[0] + 1, coord[1]])
+                    if [coord[0] - 1, coord[1]] in self.possibleMoves:
+                        self.possibleMoves.remove([coord[0] - 1, coord[1]])
+                        if [coord[0] - 1, coord[1]] in self.aiMoves:
+                            self.aiMoves.remove([coord[0] - 1, coord[1]])
+                    if [coord[0], coord[1] + 1] in self.possibleMoves:
+                        self.possibleMoves.remove([coord[0], coord[1] + 1])
+                        if [coord[0], coord[1] + 1] in self.aiMoves:
+                            self.aiMoves.remove([coord[0], coord[1] + 1])
+                    if [coord[0], coord[1] - 1] in self.possibleMoves:
+                        self.possibleMoves.remove([coord[0], coord[1] - 1])
+                        if [coord[0], coord[1] - 1] in self.aiMoves:
+                            self.aiMoves.remove([coord[0], coord[1] - 1])
+                self.currentKilling.clear()
+                self.enemyShipsAlive = targetPlayer.checkAlive()
+                print("AI killed a ship")
+            return
+
+        #Shot was invalid
+        if result == -1:
+            self.lastMove += 1
+            return self.Turn(targetPlayer)
+        else:
+            #If the coordinate is in possible Coordinates list
+            if [coordinate.x,coordinate.y] in self.possibleMoves:
+                self.possibleMoves.remove([coordinate.x,coordinate.y]) #Remove from possible coordinates
+                self.aiMoves.remove([coordinate.x,coordinate.y])
+            else:
+                print("Error: coord:" + str(coordinate.x) + ", " + str(coordinate.y) + "not in pos coords") #Error
+
+        #Previous shot hit, ship not down, current shot missed, go to next position to take down ship.
+        if result == 0 :
+            if self.lastMove > 0:
+                self.lastMove += 1
+                self.hittedMoveCurrent = self.hittedMoveStart
+            if self.lastMove == 0:
+                if self.smallestShip > 1:
+                    for i in range(self.smallestShip-1):
+                        if [coordinate.x - i, coordinate.y] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x - i, coordinate.y])
+                        if [coordinate.x + i, coordinate.y] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x + i, coordinate.y])
+                        if [coordinate.x, coordinate.y - i] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x, coordinate.y - i])
+                        if [coordinate.x, coordinate.y + i] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x, coordinate.y + i])
+        return

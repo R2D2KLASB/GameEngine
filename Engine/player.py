@@ -37,7 +37,7 @@ class Player():
         result = False
         while result is False:
             try:
-                print(self)
+                # print(self)
                 coordinate = Coordinate(input("Attack Coordinate:").upper(), self.row_size, self.col_size)
                 result = self.Attack(targetPlayer, coordinate)
                 clear()
@@ -65,9 +65,13 @@ class Player():
         if hittedShip:
             hittedShip.hit()
             self.shipBoard.updateBoard(coordinate, 'x')
+            if "ai" not in self.name:
+                print(self)
             return True
         else:
             self.shipBoard.updateBoard(coordinate, 'o')
+            if "ai" not in self.name:
+                print(self)
             return False
 
     def checkDefeated(self):
@@ -78,7 +82,7 @@ class Player():
         
 
     def __str__(self):
-        string = '\n' + self.name + ':\n\nShipboard:                      Targetboard:\n'
+        string = '\n' + self.name + ':\n\nShipboard:              Targetboard:\n'
         for row in range(self.row_size+1):
             string += self.shipBoard.__repr__()[row] + "\t\t" + self.targetBoard.__repr__()[row] + "\n"
         string += 'Ships alive: ' + str(self.checkAlive())
