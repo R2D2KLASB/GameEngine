@@ -9,17 +9,19 @@ class AIPlayer(Player):
         self.lastMoves = 0  # laatste hit: raak etc
         self.hittedMoveStart = None  # coord van geraakte hit
         self.hittedMoveCurrent = None  # hit rondom start hit
+        self.possibleMoves = [] # List with al the moves that can be done
 
+    #Do a move against the other player
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
             self.targetBoard.coordinates += [coordinate]
-            if targetPlayer.enemyAttack(coordinate):
+            if targetPlayer.enemyAttack(coordinate): #Hit
                 self.targetBoard.updateBoard(coordinate, 'x')
                 return 1
-            else:
+            else:                                    #Miss
                 self.targetBoard.updateBoard(coordinate, 'o')
                 return 0
-        return -1
+        return -1                                    #Invalid
         raise ErrorMessage('Target Coordinate already used')
 
 
@@ -27,7 +29,7 @@ class AIPlayer(Player):
         shipSizes = [4, 3, 2]
         while len(shipSizes) > 0:
             result = False
-            while result is False:
+            while result is False:                     #Loop until the boats are placed
                 try:
                     orientation = random.randint(0,1)
                     coordinates = []
@@ -56,10 +58,10 @@ class AIPlayer(Player):
     def Turn(self, targetPlayer):
         result = -1
         if self.lastMoves == 0:
-            while result == -1:
+            while result == -1: # Loop until a valid move is done
                 try:
-                    x = random.randint(0, self.row_size - 1)
-                    y = random.randint(0, self.col_size - 1)
+                    x = random.randint(0, self.row_size - 1) #random x coord
+                    y = random.randint(0, self.col_size - 1) #random y coord
                     cor = [x, y]
                     coordinate = Coordinate(cor, self.row_size, self.col_size)
                     while coordinate in self.targetBoard.coordinates:
@@ -84,6 +86,7 @@ class AIPlayer(Player):
                     clear()
             clear()
 
+        #Hitting the rest of the ship
         if self.lastMoves == 1:
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
