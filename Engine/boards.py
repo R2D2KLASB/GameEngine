@@ -1,5 +1,7 @@
 from .coordinate import Coordinate
 from .error import *
+from .gameEngine import *
+from Engine import gameEngine
 class Board():
     def __init__(self, row_size, col_size):
         self.row_size = row_size
@@ -81,9 +83,12 @@ class Ship():
 
     def hit(self):
         self.hits += 1
+
         if self.hits == self.size:
             self.defeated = True
-
+            # sendToNode("SUNK")
+        # else:
+        #    sendToNode("HIT")
 
 class targetBoard(Board):
     def __init__(self, row_size, col_size):

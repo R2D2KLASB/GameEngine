@@ -1,6 +1,7 @@
 from .player import Player
 from .error import *
 from .ai import AIPlayer
+import time
 import os
 
 class GameEngine():
@@ -12,7 +13,7 @@ class GameEngine():
         self.player1 = Player(self.row_size, self.col_size, 'player1')
 
         # if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
-        #     self.nextPlayer('player2')
+            # self.nextPlayer('player2')
 
         print('Player 2 Setup Ships')
         self.player2 = AIPlayer(self.row_size, self.col_size, 'ai2')
@@ -36,4 +37,8 @@ class GameEngine():
         clear()
         print(('Player 1' if self.player2.checkDefeated() else 'Player2') + ' WON!')
         print(self.player1 if self.player2.checkDefeated() else self.player2)
-
+    
+def sendToNode(keyword):
+    time.sleep(5)
+    print(keyword)
+    

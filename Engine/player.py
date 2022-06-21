@@ -1,6 +1,10 @@
+from multiprocessing.connection import wait
+from tracemalloc import stop
 from .coordinate import *
 from .boards import *
 from .error import *
+# from .gameEngine import *
+import time
 
 class Player():
     def __init__(self, row_size, col_size, name):
@@ -50,6 +54,9 @@ class Player():
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
             self.targetBoard.coordinates += [coordinate]
+            # sendToNode(coordinate)
+            sendToNode("FIRE")
+
             if targetPlayer.enemyAttack(coordinate):
                 self.targetBoard.updateBoard(coordinate, 'x')
             else:
