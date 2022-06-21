@@ -1,7 +1,10 @@
+from .Engine import GameEngine
+
 
 def main(args=None):
-    print('Dit werkt')
-
+    gameEngine = GameEngine(6,6)
+    gameEngine.setupPlayers()
+    gameEngine.play()
 
 
 if __name__ == '__main__':
