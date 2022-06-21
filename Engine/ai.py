@@ -4,15 +4,17 @@ import time
 
 import random
 class AIPlayer(Player):
-    def __init__(self, row_size, col_size, name):
+    def __init__(self, row_size, col_size, name, optimalisation):
         self.lastMove = 0  # laatste hit: raak etc
         self.hittedMoveStart = None  # coord van geraakte hit
         self.hittedMoveCurrent = None  # hit rondom start hit
         self.possibleMoves = [] # List with al the moves that can be done
         self.aiMoves = []  # moves the AI should do with random
+        self.movesDone = [] # shots that the ai tried with random
         self.smallestShip = 2 #smallest ship the opponend can still have
         self.enemyShipsAlive = 0 # number of ships killed
         self.currentKilling = [] #when hitting a ship, this keeps track of the killed part
+        self.optimise = optimalisation # chose a pattern with gaps, lokking at the minimal ship size of opponent
         super().__init__(row_size, col_size, name)
 
     #Do a move against the other player
@@ -59,17 +61,39 @@ class AIPlayer(Player):
                     clear()
                     pass
 
-        for i in range(self.row_size-1):
-            for j in range(self.row_size-1):
+        for i in range(self.row_size):
+            for j in range(self.row_size):
                 self.possibleMoves.append([i,j])
+                # if i%2==0 and j%2==0:
                 self.aiMoves.append([i,j])
 
-    def Turn(self, targetPlayer):
+        random.shuffle(self.aiMoves)
 
+    def Turn(self, targetPlayer):
+        coordinate = Coordinate([0,0], self.row_size, self.col_size)
         if self.lastMove == 0:
-            cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)] #random coord
+            cor = self.aiMoves[random.randint(0, len(self.aiMoves) - 1)] #random coord
             coordinate = Coordinate(cor, self.row_size, self.col_size)
             self.enemyShipsAlive = targetPlayer.checkAlive()
+            if self.optimise:
+                smallest = 10
+                for s in targetPlayer.shipBoard.ships:
+                    if s.size < smallest:
+                        smallest = s.size
+
+                if smallest < self.smallestShip:
+                    self.smallestShip = smallest
+                    for miss in self.movesDone:
+                        if self.smallestShip > 1:
+                            for i in range(self.smallestShip - 1):
+                                if [miss[0] - i, miss[1]] in self.aiMoves:
+                                    self.aiMoves.remove([miss[0] - i, miss[1]])
+                                if [miss[0] + i, miss[1]] in self.aiMoves:
+                                    self.aiMoves.remove([miss[0] + i, miss[1]])
+                                if [miss[0], miss[1] - i] in self.aiMoves:
+                                    self.aiMoves.remove([miss[0], miss[1] - i])
+                                if [miss[0], miss[1] + i] in self.aiMoves:
+                                    self.aiMoves.remove([miss[0], miss[1] + i])
 
         #Hitting the rest of the ship
         if self.lastMove == 1:
@@ -90,8 +114,6 @@ class AIPlayer(Player):
             else:
                 coordinate = Coordinate([x-1,y], self.row_size, self.row_size)
 
-# bord aflopen, elke hit die mis is kan je [x] vakjes er naast uitsluiten, [x] is hierin het kortste ship van je tegenstander, schuin door t bord heen lopen
-#oneven getallen
         if self.lastMove == 3:
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
@@ -163,13 +185,17 @@ class AIPlayer(Player):
 
         #Shot was invalid
         if result == -1:
-            self.lastMove += 1
+            if self.lastMove < 4 and self.lastMove >= 0:
+                self.lastMove += 1
+            else:
+                self.lastMove = 0
             return self.Turn(targetPlayer)
         else:
             #If the coordinate is in possible Coordinates list
             if [coordinate.x,coordinate.y] in self.possibleMoves:
                 self.possibleMoves.remove([coordinate.x,coordinate.y]) #Remove from possible coordinates
-                self.aiMoves.remove([coordinate.x,coordinate.y])
+                if [coordinate.x,coordinate.y] in self.aiMoves:
+                    self.aiMoves.remove([coordinate.x,coordinate.y])
             else:
                 print("Error: coord:" + str(coordinate.x) + ", " + str(coordinate.y) + "not in pos coords") #Error
 
@@ -179,14 +205,16 @@ class AIPlayer(Player):
                 self.lastMove += 1
                 self.hittedMoveCurrent = self.hittedMoveStart
             if self.lastMove == 0:
-                if self.smallestShip > 1:
-                    for i in range(self.smallestShip-1):
-                        if [coordinate.x - i, coordinate.y] in self.aiMoves:
-                            self.aiMoves.remove([coordinate.x - i, coordinate.y])
-                        if [coordinate.x + i, coordinate.y] in self.aiMoves:
-                            self.aiMoves.remove([coordinate.x + i, coordinate.y])
-                        if [coordinate.x, coordinate.y - i] in self.aiMoves:
-                            self.aiMoves.remove([coordinate.x, coordinate.y - i])
-                        if [coordinate.x, coordinate.y + i] in self.aiMoves:
-                            self.aiMoves.remove([coordinate.x, coordinate.y + i])
+                self.movesDone.append([coordinate.x, coordinate.y])
+                if self.optimise:
+                    if self.smallestShip > 1:
+                        for i in range(1, self.smallestShip):
+                            if [coordinate.x - i, coordinate.y] in self.aiMoves:
+                                self.aiMoves.remove([coordinate.x - i, coordinate.y])
+                            if [coordinate.x + i, coordinate.y] in self.aiMoves:
+                                self.aiMoves.remove([coordinate.x + i, coordinate.y])
+                            if [coordinate.x, coordinate.y - i] in self.aiMoves:
+                                self.aiMoves.remove([coordinate.x, coordinate.y - i])
+                            if [coordinate.x, coordinate.y + i] in self.aiMoves:
+                                self.aiMoves.remove([coordinate.x, coordinate.y + i])
         return
