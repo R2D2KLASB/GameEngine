@@ -15,11 +15,12 @@ setup(
     zip_safe=True,
     maintainer='njenneboer',
     maintainer_email='njenneboer@todo.todo',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='GameEngine for BattleShip',
+    license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'start = game_engine.start:main'
         ],
     },
 )
