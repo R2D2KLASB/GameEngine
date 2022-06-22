@@ -1,20 +1,41 @@
 from .Engine import GameEngine
 from .Nodes import *
+from .Connection import *
 import rclpy
+import sys
 import time
+import threading
 
+
+
+def game(player, queue, publisher):
+    # gameEngine = GameEngine([6,6], player, publisher)
+    # gameEngine.setupPlayers()
+    connection = Connect(player, queue, publisher)
+    if connection.wait_connection():
+        print(connection.roll_a_dice())
+
+    
 
 def main(args=None):
-    rclpy.init(args=args)
+    par = sys.argv
 
-    intern_publisher = InternPublisher()
+    if len(par) == 2 and ( par[-1] == 'A' or par[-1] == 'B'):
+        
+        player = par[-1]
 
-    gameEngine = GameEngine([6,6], intern_publisher)
-    gameEngine.setupPlayers()
-    gameEngine.play()
+        rclpy.init()
 
+        queue = Queue()
 
+        extern_publisher = Publisher('extern_publisher', 'game_info/'+('B' if player == 'A' else 'A'))
+        extern_listener = Listener('extern_listener', 'game_info/'+player, queue)
 
+        t1 = threading.Thread(target=rclpy.spin, args=(extern_listener,))
+        t2 = threading.Thread(target=game, args=(player,queue,extern_publisher))
 
-if __name__ == '__main__':
-    main()
+        t1.start()
+        t2.start()
+    
+    else:
+        print('No player para')
