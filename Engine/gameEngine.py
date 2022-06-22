@@ -9,13 +9,12 @@ class GameEngine():
         self.col_size = col_size
 
     def setupPlayers(self):
-        self.player1 = AIPlayer(self.row_size, self.col_size, 'ai1', False)
+        self.player1 = Player(self.row_size, self.col_size, 'Merry')
 
         # if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
         #     self.nextPlayer('player2')
 
-        print('Player 2 Setup Ships')
-        self.player2 = AIPlayer(self.row_size, self.col_size, 'ai2', True)
+        self.player2 = AIPlayer(self.row_size, self.col_size, 'ai', True)
 
     def nextPlayer(self, name=False):
         input('\nNext?')
@@ -34,6 +33,6 @@ class GameEngine():
                 self.nextPlayer(self.player2.name)
             self.player2.Turn(self.player1)
         clear()
-        print(('Player 1' if self.player2.checkDefeated() else 'Player2') + ' WON!')
+        print((self.player1.name if self.player2.checkDefeated() else self.player2.name) + ' WON!')
         print(self.player1 if self.player2.checkDefeated() else self.player2)
 

@@ -12,7 +12,7 @@ class Player():
         self.setupBoard()
 
     def setupBoard(self):
-        shipSizes = [4,3,2]
+        shipSizes = [5,4,3,2]
         while len(shipSizes) > 0:
             result = False
             while result is False:
