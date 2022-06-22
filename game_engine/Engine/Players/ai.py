@@ -1,11 +1,11 @@
-from .boards import *
-from .player import *
+from ..boards import *
+from .player import Player
 import time
 
 import random
 class AIPlayer(Player):
-    def __init__(self, row_size, col_size, intern_publisher, name):
-        super().__init__(row_size, col_size, intern_publisher, name)
+    def __init__(self, row_size, col_size, name):
+        super().__init__(row_size, col_size, name)
 
 
     def Attack(self, targetPlayer, coordinate):
@@ -19,7 +19,7 @@ class AIPlayer(Player):
         raise ErrorMessage('Target Coordinate already used')
 
     def setupBoard(self):
-        shipSizes = [4, 3, 2]
+        shipSizes = [2]
         while len(shipSizes) > 0:
             result = False
             while result is False:
