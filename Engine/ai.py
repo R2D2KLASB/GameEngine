@@ -72,7 +72,10 @@ class AIPlayer(Player):
     def Turn(self, targetPlayer):
         coordinate = Coordinate([0,0], self.row_size, self.col_size)
         if self.lastMove == 0:
-            cor = self.aiMoves[random.randint(0, len(self.aiMoves) - 1)] #random coord
+            if len(self.aiMoves) > 0:
+                cor = self.aiMoves[random.randint(0, len(self.aiMoves) - 1)] #random coord
+            else:
+                cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)]
             coordinate = Coordinate(cor, self.row_size, self.col_size)
             self.enemyShipsAlive = targetPlayer.checkAlive()
             if self.optimise:
@@ -134,13 +137,17 @@ class AIPlayer(Player):
 
         #Check if a coordinate is valid, else retry
         if not [coordinate.x,coordinate.y] in self.possibleMoves:
-            if not self.lastMove == 4:
-                self.lastMove += 1
+            if self.lastMove < 5:
+                if not self.lastMove == 4:
+                    self.lastMove += 1
+                    return self.Turn(targetPlayer)
+                else:
+                    self.lastMove = 0
+                    return self.Turn(targetPlayer)
                 return self.Turn(targetPlayer)
             else:
                 self.lastMove = 0
                 return self.Turn(targetPlayer)
-            return self.Turn(targetPlayer)
         #Do the move
         result = self.Attack(targetPlayer, coordinate)
 
