@@ -2,13 +2,14 @@ from setuptools import setup
 
 package_name = 'game_engine'
 Engine = 'game_engine/Engine'
+Players = 'game_engine/Engine/Players'
 Nodes = 'game_engine/Nodes'
 Connect = 'game_engine/Connection'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name,Engine,Nodes,Connect],
+    packages=[package_name,Engine,Players,Nodes,Connect],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),

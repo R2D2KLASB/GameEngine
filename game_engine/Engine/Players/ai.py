@@ -1,5 +1,5 @@
-from .boards import *
-from .player import *
+from ..boards import *
+from .player import Player
 import time
 
 import random
@@ -19,7 +19,7 @@ class AIPlayer(Player):
         raise ErrorMessage('Target Coordinate already used')
 
     def setupBoard(self):
-        shipSizes = [4, 3, 2]
+        shipSizes = [2]
         while len(shipSizes) > 0:
             result = False
             while result is False:

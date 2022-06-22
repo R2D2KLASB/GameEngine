@@ -2,9 +2,6 @@ import time
 import random
 import os
 
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
 class Connect():
     def __init__(self, player, queue, publisher):
         self.player = player
@@ -13,16 +10,13 @@ class Connect():
 
     def wait_connection(self):
         count = 0
+        print('\nWaiting on other player....')
         while self.publisher.get_subscription_count() != 1:
-            clear()
-            print('Waiting on other player' + ('.'*((count+1) % 3)))
             time.sleep(1)
-            count += 1 
         self.publisher.send('READY')
         msg = self.queue.read(wait=True)
         if msg:
             if msg == 'READY':
-                clear()
                 print('CONNECTED')
                 return True
 

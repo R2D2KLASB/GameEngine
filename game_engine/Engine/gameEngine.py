@@ -1,6 +1,4 @@
-from .player import Player
 from .error import *
-from .ai import AIPlayer
 import os
 import time
 class GameEngine():
@@ -21,12 +19,12 @@ class GameEngine():
 
     def play(self):
         while not self.player1.checkDefeated():
-            if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
+            if ('ai' not in self.player1.name and 'ai' not in self.player2.name) and ('target' not in self.player1.name and 'target' not in self.player2.name):
                 self.nextPlayer(self.player1.name)
             self.player1.Turn(self.player2)
             if self.player2.checkDefeated():
                 break
-            if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
+            if ('ai' not in self.player1.name and 'ai' not in self.player2.name) and ('target' not in self.player1.name and 'target' not in self.player2.name):
                 self.nextPlayer(self.player2.name)
             self.player2.Turn(self.player1)
         clear()

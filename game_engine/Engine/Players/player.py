@@ -1,6 +1,6 @@
-from .coordinate import *
-from .boards import *
-from .error import *
+from ..coordinate import *
+from ..boards import *
+from ..error import *
 
 class Player():
     def __init__(self, row_size, col_size, name):
@@ -12,7 +12,7 @@ class Player():
         self.setupBoard()
 
     def setupBoard(self):
-        shipSizes = [4,3,2]
+        shipSizes = [2]
         while len(shipSizes) > 0:
             result = False
             while result is False:
@@ -34,6 +34,8 @@ class Player():
         print(self)
 
     def Turn(self, targetPlayer):
+        clear()
+        print('It\'s your turn!')
         result = False
         while result is False:
             try:
@@ -46,6 +48,7 @@ class Player():
                 clear()
                 print(e)
                 pass
+                
     
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:

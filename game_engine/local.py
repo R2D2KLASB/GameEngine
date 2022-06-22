@@ -21,4 +21,4 @@ def main(args=None):
     if len(par) == 3 and (par[-2] == 'console' or par[-2] == 'ai') and (par[-1] == 'console' or par[-1] == 'ai'):
         play(par[-2], par[-1], [10,10])
     else:
-        print('No player para')
+        print('Wrong player setup')
