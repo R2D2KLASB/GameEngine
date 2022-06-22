@@ -1,22 +1,15 @@
-from .player import Player
 from .error import *
-from .ai import AIPlayer
 import os
 import time
 class GameEngine():
-    def __init__(self, row_col_size, intern_publisher):
+    def __init__(self, row_col_size):
         self.row_size = row_col_size[0]
         self.col_size = row_col_size[1]
-        self.intern_publisher = intern_publisher
 
-    def setupPlayers(self):
-        self.player1 = Player(self.row_size, self.col_size, self.intern_publisher, 'player1')
+    def setupPlayers(self, player1, player2):
+        self.player1 = player1
+        self.player2 = player2
 
-        # self.nextPlayer('player2')
-
-        print('Player 2 Setup Ships')
-        self.player2 = AIPlayer(self.row_size, self.col_size, self.intern_publisher, 'aiplayer2')
-        self.intern_publisher.send('READY')
 
     def nextPlayer(self, name=False):
         input('\nNext?')
@@ -26,15 +19,15 @@ class GameEngine():
 
     def play(self):
         while not self.player1.checkDefeated():
-            if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
+            if ('ai' not in self.player1.name and 'ai' not in self.player2.name) and ('target' not in self.player1.name and 'target' not in self.player2.name):
                 self.nextPlayer(self.player1.name)
             self.player1.Turn(self.player2)
             if self.player2.checkDefeated():
                 break
-            if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
+            if ('ai' not in self.player1.name and 'ai' not in self.player2.name) and ('target' not in self.player1.name and 'target' not in self.player2.name):
                 self.nextPlayer(self.player2.name)
             self.player2.Turn(self.player1)
         clear()
-        print(('Player 1' if self.player2.checkDefeated() else 'Player2') + ' WON!')
+        print((self.player1.name if self.player2.checkDefeated() else self.player2.name) + ' WON!')
         print(self.player1 if self.player2.checkDefeated() else self.player2)
 

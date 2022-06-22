@@ -2,12 +2,14 @@ from setuptools import setup
 
 package_name = 'game_engine'
 Engine = 'game_engine/Engine'
+Players = 'game_engine/Engine/Players'
 Nodes = 'game_engine/Nodes'
+Connect = 'game_engine/Connection'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name,Engine,Nodes],
+    packages=[package_name,Engine,Players,Nodes,Connect],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
@@ -22,8 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'start = game_engine.start:main',
-            'test = game_engine.test:main'
+            'local = game_engine.local:main',
+            'lan = game_engine.lan:main'
         ],
     },
 )
