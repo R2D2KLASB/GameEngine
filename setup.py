@@ -23,8 +23,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'start = game_engine.start:main',
-            'test = game_engine.test:main'
+            'local = game_engine.local:main',
+            'lan = game_engine.lan:main'
         ],
     },
 )

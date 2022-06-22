@@ -4,8 +4,8 @@ import time
 
 import random
 class AIPlayer(Player):
-    def __init__(self, row_size, col_size, intern_publisher, name):
-        super().__init__(row_size, col_size, intern_publisher, name)
+    def __init__(self, row_size, col_size, name):
+        super().__init__(row_size, col_size, name)
 
 
     def Attack(self, targetPlayer, coordinate):

@@ -3,12 +3,11 @@ from .boards import *
 from .error import *
 
 class Player():
-    def __init__(self, row_size, col_size, intern_publisher, name):
+    def __init__(self, row_size, col_size, name):
         self.shipBoard = shipBoard(row_size,col_size)
         self.targetBoard = targetBoard(row_size,col_size)
         self.row_size = row_size
         self.col_size = col_size
-        self.intern_publisher = intern_publisher
         self.name = name
         self.setupBoard()
 
@@ -50,14 +49,11 @@ class Player():
     
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
-            self.intern_publisher.send('FIRE')
             self.targetBoard.coordinates += [coordinate]
             if targetPlayer.enemyAttack(coordinate):
                 self.targetBoard.updateBoard(coordinate, 'x')
-                self.intern_publisher.send('HIT')
             else:
                 self.targetBoard.updateBoard(coordinate, 'o')
-                self.intern_publisher.send('MIS')
             return True
         raise ErrorMessage('Target Coordinate already used')
     

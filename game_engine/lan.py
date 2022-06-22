@@ -1,4 +1,5 @@
 from .Engine import GameEngine
+from .Engine import Player
 from .Nodes import *
 from .Connection import *
 import rclpy
@@ -8,7 +9,7 @@ import threading
 
 
 
-def game(player, queue, publisher):
+def play(player, queue, publisher):
     # gameEngine = GameEngine([6,6], player, publisher)
     # gameEngine.setupPlayers()
     connection = Connect(player, queue, publisher)
@@ -32,7 +33,7 @@ def main(args=None):
         extern_listener = Listener('extern_listener', 'game_info/'+player, queue)
 
         t1 = threading.Thread(target=rclpy.spin, args=(extern_listener,))
-        t2 = threading.Thread(target=game, args=(player,queue,extern_publisher))
+        t2 = threading.Thread(target=play, args=(player,queue,extern_publisher))
 
         t1.start()
         t2.start()
