@@ -69,20 +69,13 @@ class AIPlayer(Player):
                 self.aiMoves.append([i,j])
 
         random.shuffle(self.aiMoves)
+        print("pos mvs: " + str(len(self.possibleMoves)))
 
     def Turn(self, targetPlayer):
         coordinate = Coordinate([0,0], self.row_size, self.col_size)
 
         #Preveous shot missed or first shot
         if self.lastMove == 0:
-
-            #If the AI has smart moves:
-            if len(self.aiMoves) > 0:
-                cor = self.aiMoves[random.randint(0, len(self.aiMoves) - 1)] #random coord from the smart moves
-            else:
-                cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)] #random coord from the possible coords list
-
-            coordinate = Coordinate(cor, self.row_size, self.col_size)
             self.enemyShipsAlive = targetPlayer.checkAlive() #Update the number of living ships from the opponent
 
             #If shoot optimisation is true, the ai chooses the coords to shoot by looking at the smallest ship of the opponent
@@ -106,51 +99,68 @@ class AIPlayer(Player):
                                 if [miss[0], miss[1] + i] in self.aiMoves:
                                     self.aiMoves.remove([miss[0], miss[1] + i])
 
+                # If the AI has smart moves in its list:
+                if len(self.aiMoves) > 0:
+                    cor = self.aiMoves[random.randint(0, len(self.aiMoves) - 1)] #random coord from the smart moves
+                else:
+                    cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)] #random coord from the possible coords list
+            else:
+                cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)]  # random coord from the possible coords list
+            coordinate = Coordinate(cor, self.row_size, self.col_size)
+
         #Hitting the rest of the enemy ship
         if self.lastMove == 1:
             if self.directionKnown and self.horizontal == False:
-                self.lastMove += 1
+                self.lastMove == 3
                 return self.Turn(targetPlayer)
+
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(x+1) > self.row_size-1:
                 self.lastMove = 2
+                self.hittedMoveCurrent = self.hittedMoveStart
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x+1, y], self.row_size, self.row_size)
 
         if self.lastMove == 2:
             if self.directionKnown and self.horizontal == False:
-                self.lastMove += 1
+                self.lastMove == 3
                 return self.Turn(targetPlayer)
+
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(x-1) < 0:
                 self.lastMove = 3
+                self.hittedMoveCurrent = self.hittedMoveStart
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x-1,y], self.row_size, self.row_size)
 
         if self.lastMove == 3:
             if self.directionKnown and self.horizontal:
-                self.lastMove += 1
-                return self.Turn(targetPlayer)
+                self.lastMove == 1
+                return self.Turn(targetPlayer) #TODO recursive error
+
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(y+1) > self.row_size-1:
                 self.lastMove = 4
+                self.hittedMoveCurrent = self.hittedMoveStart
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x,y+1], self.row_size, self.row_size)
 
         if self.lastMove == 4:
-            if self.directionKnown and self.horizontal:
+            if self.directionKnown and self.horizontal == True:
                 self.lastMove == 1
                 return self.Turn(targetPlayer)
+
             x = self.hittedMoveCurrent.x
             y = self.hittedMoveCurrent.y
             if int(y-1) < 0:
-                self.lastMove = 0
+                self.lastMove = 3
+                self.hittedMoveCurrent = self.hittedMoveStart
                 return self.Turn(targetPlayer)
             else:
                 coordinate = Coordinate([x,y-1], self.row_size, self.row_size)
@@ -158,25 +168,32 @@ class AIPlayer(Player):
         #Check if a coordinate is valid, else retry
         if not [coordinate.x,coordinate.y] in self.possibleMoves:
             if self.lastMove < 5:
-                if self.lastMove < 4 and self.lastMove >= 0:
+                if self.lastMove < 4 and self.lastMove > 0:
                     self.lastMove += 1
+                    self.hittedMoveCurrent = self.hittedMoveStart
                     return self.Turn(targetPlayer)
                 else:
-                    self.lastMove = 1
+                    self.lastMove = 0
+                    # self.directionKnown = False
                     return self.Turn(targetPlayer)
             else:
                 self.lastMove = 0
                 return self.Turn(targetPlayer)
+
         #Do the move
         result = self.Attack(targetPlayer, coordinate)
 
-        #Previous shot missed
+
+        print(self.name + " Result: " + str(result) + " ; " + str(coordinate.xy) + ", "+ str(self.directionKnown) + ", " + str(self.horizontal)+ "lm: " + str(self.lastMove))
+
+
+        #Previous shot was random
         if self.lastMove == 0:
-            self.hittedMoveStart = coordinate
             self.hittedMoveCurrent = coordinate
 
             #current shot hitted
             if result == 1:
+                self.hittedMoveStart = coordinate
                 self.lastMove = 1
 
                 #If shoot optimisation is True, the ai checks if the ship can be horizontal, looking at minimal ship size needed
@@ -204,26 +221,22 @@ class AIPlayer(Player):
                         else:
                             break
 
+                    #If a horizontal ship doesnt fit it must be vertical
                     if maxShipSizeH < self.smallestShip:
-                        self.horizontal = True
-                        self.directionKnown = True
-                    if maxShipSizeV < self.smallestShip:
                         self.horizontal = False
+                        print("vertical1: " + str(coordinate.xy))
+                        self.directionKnown = True
+
+                    #If a vertical ship doesnt fit, it must be horizontal
+                    if maxShipSizeV < self.smallestShip:
+                        print("horizontal1: " + str(coordinate.xy))
+                        self.horizontal = True
                         self.directionKnown = True
 
         #Current shot hitted
         if result == 1:
             self.hittedMoveCurrent = coordinate
             self.currentKilling.append([coordinate.x, coordinate.y])
-            if len(self.currentKilling) == 2:
-                self.directionKnown = True
-
-                #if coordinate x1 == x2 (horizontal)
-                if self.currentKilling[0][0] == self.currentKilling[1][0]:
-                    self.horizontal = False
-                else:
-                    self.horizontal = True
-
 
             #if the ship is down
             if self.enemyShipsAlive > targetPlayer.checkAlive():
@@ -248,19 +261,42 @@ class AIPlayer(Player):
                             self.aiMoves.remove([coord[0], coord[1] - 1])
                 self.currentKilling.clear()
                 self.directionKnown = False
-                self.enemyShipsAlive = targetPlayer.checkAlive()
+                self.enemyShipsAlive -= 1
                 self.lastMove = 0
                 print(self.name + " killed a ship " + str(coordinate.x) + " : " + str(coordinate.y))
-            return
+
+            if len(self.currentKilling) == 2:
+                if self.optimise:
+                    self.directionKnown = True
+                    # if coordinate x1 == x2 (Vertical)
+                    if self.currentKilling[0][0] == self.currentKilling[1][0]:
+                        print("vertical: " + str(coordinate.xy))
+                        self.horizontal = False
+                    elif self.currentKilling[0][1] == self.currentKilling[1][1]:
+                        print("horizontal: " + str(coordinate.xy))
+                        self.horizontal = True
 
         #Shot was invalid, retry
         if result == -1:
-            if self.lastMove < 4 and self.lastMove >= 0:
-                self.lastMove += 1
-            else:
-                self.lastMove = 0
+            self.lastMove = 0
+            print(self)
             return self.Turn(targetPlayer)
         else:
+            self.movesDone.append([coordinate.x, coordinate.y])
+
+            # if shoot optimisation is True, remove empty location from shoot list
+            if self.optimise:
+                if self.smallestShip > 1:
+                    for i in range(1, self.smallestShip):
+                        if [coordinate.x - i, coordinate.y] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x - i, coordinate.y])
+                        if [coordinate.x + i, coordinate.y] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x + i, coordinate.y])
+                        if [coordinate.x, coordinate.y - i] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x, coordinate.y - i])
+                        if [coordinate.x, coordinate.y + i] in self.aiMoves:
+                            self.aiMoves.remove([coordinate.x, coordinate.y + i])
+
 
             #If the coordinate is in the possible Coordinates list
             if [coordinate.x,coordinate.y] in self.possibleMoves:
@@ -272,24 +308,10 @@ class AIPlayer(Player):
             else:
                 print("Error: coord:" + str(coordinate.x) + ", " + str(coordinate.y) + "not in pos coords") #Error
 
-        #Previous shot hitted, ship not down, current shot missed, go to next position to take down the rest of the ship.
+        #missed
         if result == 0 :
+            # Previous shot hitted, ship not down, current shot missed, go to next position to take down the rest of the ship.
             if self.lastMove > 0:
                 self.lastMove += 1
                 self.hittedMoveCurrent = self.hittedMoveStart
-            if self.lastMove == 0:
-                self.movesDone.append([coordinate.x, coordinate.y])
-
-                #if shoot optimisation is True
-                if self.optimise:
-                    if self.smallestShip > 1:
-                        for i in range(1, self.smallestShip):
-                            if [coordinate.x - i, coordinate.y] in self.aiMoves:
-                                self.aiMoves.remove([coordinate.x - i, coordinate.y])
-                            if [coordinate.x + i, coordinate.y] in self.aiMoves:
-                                self.aiMoves.remove([coordinate.x + i, coordinate.y])
-                            if [coordinate.x, coordinate.y - i] in self.aiMoves:
-                                self.aiMoves.remove([coordinate.x, coordinate.y - i])
-                            if [coordinate.x, coordinate.y + i] in self.aiMoves:
-                                self.aiMoves.remove([coordinate.x, coordinate.y + i])
         return
