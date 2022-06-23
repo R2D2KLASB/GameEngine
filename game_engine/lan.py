@@ -24,7 +24,6 @@ def play(player, queue, publisher, size):
             gameEngine.setupPlayers(player1, player2)
         else:
             print(player1)
-            print('\nWaiting on next move from the other player...')
             gameEngine.setupPlayers(player2, player1)
         gameEngine.play()
 

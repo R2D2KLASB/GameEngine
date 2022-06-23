@@ -7,8 +7,10 @@ class LANTarget(Player):
         self.queue = queue
 
     def Turn(self, targetPlayer):
+        print('\nWaiting on next move from the other player...')
         msg = self.queue.read(wait=True)
-        result = self.Attack(targetPlayer, Coordinate(msg, self.row_size, self.col_size))
+        clear()
+        self.Attack(targetPlayer, Coordinate(msg, self.row_size, self.col_size))
 
     def Attack(self, targetPlayer, coordinate):
         
@@ -24,7 +26,7 @@ class LANTarget(Player):
         return False
 
     def checkAlive(self):
-        return 4
+        return len(self.shipSizes)
 
     def setupBoard(self):
         return

@@ -1,4 +1,4 @@
-from .player import Player
+from .player import *
 from ..coordinate import Coordinate
 
 class LANPlayer(Player):
@@ -18,13 +18,16 @@ class LANPlayer(Player):
 
             if msg == 'HIT':
                 self.targetBoard.updateBoard(coordinate, 'x')
+            elif msg == 'SUNK':
+                self.targetDefeated += 1
+                self.targetBoard.updateBoard(coordinate, 'x')
             elif msg == 'MIS':
                 self.targetBoard.updateBoard(coordinate, 'o')
+            elif msg == 'LOSE':
+                self.targetBoard.updateBoard(coordinate, 'x')
             return True
         raise ErrorMessage('Target Coordinate already used')
 
     def enemyAttack(self, coordinate):
-        if super().enemyAttack(coordinate):
-            self.extern_pub.send('HIT')
-        else:
-            self.extern_pub.send('MIS')
+        result = super().enemyAttack(coordinate)
+        self.extern_pub.send(result)
