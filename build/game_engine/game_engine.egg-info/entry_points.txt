@@ -1,4 +1,0 @@
-[console_scripts]
-lan = game_engine.lan:main
-local = game_engine.local:main
-
