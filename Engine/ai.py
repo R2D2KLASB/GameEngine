@@ -103,6 +103,7 @@ class AIPlayer(Player):
                 if len(self.aiMoves) > 0:
                     cor = self.aiMoves[random.randint(0, len(self.aiMoves) - 1)] #random coord from the smart moves
                 else:
+                    print("No smart moves!") #//TODO code maken om alle dubbele gaten in AI moves te gooien, 2 schip leeft alleen nog
                     cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)] #random coord from the possible coords list
             else:
                 cor = self.possibleMoves[random.randint(0, len(self.possibleMoves) - 1)]  # random coord from the possible coords list
