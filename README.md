@@ -8,7 +8,7 @@ The install.sh script should download automatically the dependencies and build t
 
 ```
 cd "PATH-TO-ROS2-ENVIROMENT/src"
-git clone git@github.com:R2D2KLASB/Beeldverwerking.git
+git clone git@github.com:R2D2KLASB/GameEngine.git
 cd GameEngine
 ./install.sh
 . ../../install/setup.bash
