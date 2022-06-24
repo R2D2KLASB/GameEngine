@@ -1,0 +1,6 @@
+source;share\receive_node\hook\cmake_prefix_path.ps1
+source;share\receive_node\hook\cmake_prefix_path.bat
+source;share\receive_node\hook\cmake_prefix_path.dsv
+source;share/receive_node/local_setup.bat
+source;share/receive_node/local_setup.dsv
+source;share/receive_node/local_setup.ps1

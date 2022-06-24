@@ -1,0 +1,34 @@
+[1.078s] Invoking command in 'c:\Users\marti\Documents\GitHub\GameEngine': PYTHONPATH=c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages;%PYTHONPATH% c:\opt\ros\foxy\x64\python.exe setup.py egg_info --egg-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine build --build-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build install --prefix c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine --record c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log --single-version-externally-managed
+[1.906s] running egg_info
+[1.906s] writing c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\PKG-INFO
+[1.906s] writing dependency_links to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\dependency_links.txt
+[1.922s] writing entry points to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\entry_points.txt
+[1.922s] writing requirements to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\requires.txt
+[1.922s] writing top-level names to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\top_level.txt
+[1.953s] reading manifest file 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\SOURCES.txt'
+[1.968s] writing manifest file 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\SOURCES.txt'
+[1.968s] running build
+[1.968s] running build_py
+[1.968s] copying game_engine/Engine/Players\ai.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[1.984s] running install
+[1.984s] running install_lib
+[1.984s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\ai.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.031s] writing byte-compilation script 'C:\Users\marti\AppData\Local\Temp\tmp8ja0_7xz.py'
+[2.031s] c:\opt\ros\foxy\x64\python.exe C:\Users\marti\AppData\Local\Temp\tmp8ja0_7xz.py
+[2.156s]   File "c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players\ai.py", line 1
+[2.156s]     from ../boards import *
+[2.156s]            ^
+[2.156s] SyntaxError: invalid syntax
+[2.156s] 
+[2.172s] removing C:\Users\marti\AppData\Local\Temp\tmp8ja0_7xz.py
+[2.172s] running install_data
+[2.172s] running install_egg_info
+[2.172s] removing 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine-0.0.0-py3.8.egg-info' (and everything under it)
+[2.172s] Copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine-0.0.0-py3.8.egg-info
+[2.203s] running install_scripts
+[2.250s] Installing lan-script.py script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.250s] Installing lan.exe script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.250s] Installing local-script.py script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.250s] Installing local.exe script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.250s] writing list of installed files to 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log'
+[2.297s] Invoked command in 'c:\Users\marti\Documents\GitHub\GameEngine' returned '0': PYTHONPATH=c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages;%PYTHONPATH% c:\opt\ros\foxy\x64\python.exe setup.py egg_info --egg-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine build --build-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build install --prefix c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine --record c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log --single-version-externally-managed

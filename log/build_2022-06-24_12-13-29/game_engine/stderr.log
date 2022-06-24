@@ -1,0 +1,5 @@
+  File "c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players\ai.py", line 1
+    from ../boards import *
+           ^
+SyntaxError: invalid syntax
+
