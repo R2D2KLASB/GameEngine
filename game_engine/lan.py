@@ -40,6 +40,10 @@ def main(args=None):
         rclpy.init()
 
         queue = Queue()
+        
+        publisher = Publisher('publisher','game_info/intern/publisher')
+        while True:
+            publisher.send(input('READY1'))
 
         extern_publisher = Publisher('extern_publisher', 'game_info/'+('B' if player == 'A' else 'A'))
         extern_listener = Listener('extern_listener', 'game_info/'+player, queue)
