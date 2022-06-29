@@ -11,7 +11,7 @@ class Player():
         self.col_size = col_size
         self.name = name
         self.camera = camera
-        self.shipSizes = [2, 3, 3, 4, 5]
+        self.shipSizes = [2, 3]
         self.countShips = len(self.shipSizes)
         self.targetDefeated = 0
         self.setupBoard()

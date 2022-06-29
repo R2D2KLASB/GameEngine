@@ -53,7 +53,7 @@ def main(args=None):
         if par[-1] == 'B':
             publisher['intern'] = Publisher('intern_publisher', 'game_info/intern/publish')
             publisher['gcode'] = Publisher('gcode_publisher', 'game_info/intern/gcode')
-            camera = True
+            camera = False
 
         elif par[-1] == 'A':
             publisher['intern'] = Publisher('intern_publisher', 'game_info/intern/test_publish')

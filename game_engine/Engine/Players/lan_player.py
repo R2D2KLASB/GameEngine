@@ -21,23 +21,23 @@ class LANPlayer(Player):
             self.targetBoard.coordinates += [coordinate]
             if msg == 'HIT':
                 self.publisher['intern'].send('HIT 0')
-                self.publish['gcode'].send('G4 R%s C%s P0' % (coordinate.y+1, coordinate.x+1))
+                self.publisher['gcode'].send('G4 R%s C%s P0' % (coordinate.y+1, coordinate.x+1))
                 self.targetBoard.updateBoard(coordinate, 'x')
             elif msg == 'SUNK':
                 self.publisher['intern'].send('HIT 0')
-                self.publish['gcode'].send('G4 R%s C%s P0' % (coordinate.y+1, coordinate.x+1))
+                self.publisher['gcode'].send('G4 R%s C%s P0' % (coordinate.y+1, coordinate.x+1))
                 # time.sleep(4.5)
                 self.publisher['intern'].send('SUNK 0')
                 self.targetDefeated += 1
                 self.targetBoard.updateBoard(coordinate, 'x')
             elif msg == 'MISS':
                 self.publisher['intern'].send('MISS 0')
-                self.publish['gcode'].send('G5 R%s C%s P0' % (coordinate.y+1, coordinate.x+1))
+                self.publisher['gcode'].send('G5 R%s C%s P0' % (coordinate.y+1, coordinate.x+1))
                 self.targetBoard.updateBoard(coordinate, 'o')
             elif msg == 'LOSE':
                 # self.publisher['extern'].send('WON')
                 self.publisher['intern'].send('WIN')
-                self.publish['gcode'].send('G8 P1')
+                self.publisher['gcode'].send('G8 P1')
                 self.targetBoard.updateBoard(coordinate, 'x')
             return True
         raise ErrorMessage('Target Coordinate already used', self.publisher['intern'])
@@ -47,16 +47,19 @@ class LANPlayer(Player):
         self.publisher['extern'].send(result)
         if result == 'HIT':
             self.publisher['intern'].send('HIT 1')
-            self.publish['gcode'].send('G4 R%s C%s P1' % (coordinate.y+1, coordinate.x+1))
+            self.publisher['gcode'].send('G4 R%s C%s P1' % (coordinate.y+1, coordinate.x+1))
         elif result == 'SUNK':
-            self.publish['gcode'].send('G4 R%s C%s P1' % (coordinate.y+1, coordinate.x+1))
+            self.publisher['intern'].send('HIT 1')
+            self.publisher['intern'].send('SUNK 1')
+            self.publisher['gcode'].send('G4 R%s C%s P1' % (coordinate.y+1, coordinate.x+1))
             for ship in self.shipBoard.ships:
                 if ship.checkCoordinate(coordinate):
                     sunkedShip = ship
                     break
-            self.publish['gcode']('G7 R%s C%s W%s L%s P1' % ((sunkedShip.coordinates[0].y+1), (sunkedShip.coordinates[0].x+1),(1 if sunkedShip.orientation else sunkedShip.size),(sunkedShip.size if sunkedShip.orientation else 1)))
+            # self.publisher['gcode']('G7 R%s C%s W%s L%s P1' % ((sunkedShip.coordinates[0].y+1), (sunkedShip.coordinates[0].x+1),(1 if sunkedShip.orientation else sunkedShip.size),(sunkedShip.size if sunkedShip.orientation else 1)))
         elif result == 'MISS':
-            self.publish['gcode'].send('G5 R%s C%s P1' % (coordinate.y+1, coordinate.x+1))
+            self.publisher['intern'].send('MISS 1')
+            self.publisher['gcode'].send('G5 R%s C%s P1' % (coordinate.y+1, coordinate.x+1))
 
     def checkDefeated(self):
         result = all(ship.defeated for ship in self.shipBoard.ships)
