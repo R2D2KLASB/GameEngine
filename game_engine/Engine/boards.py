@@ -73,16 +73,35 @@ class Ship():
         self.size = len(coordinates)
         self.hits = 0
         self.defeated = False
+        # False is horizontaal
+        # True is verticaal
+        self.orientation = self.setOrientation()
 
     def checkCoordinate(self, coordinate):
         if coordinate in self.coordinates:
             return True
         return False 
+    
+    def setOrientation(self):
+        if self.coordinates[0].x == self.coordinates[1].x:
+            self.coordinates = sorted(self.coordinates, key=lambda ship: ship.y)
+            return True
+        self.coordinates = sorted(self.coordinates, key=lambda ship: ship.x)
+        return False
 
     def hit(self):
         self.hits += 1
         if self.hits == self.size:
             self.defeated = True
+
+    def __repr__(self):
+        lst = []
+        for coordinate in self.coordinates:
+            lst += [coordinate.xy]
+        return str(lst)
+    
+    def __str__(self):
+        return self.__repr__()
 
 
 class targetBoard(Board):

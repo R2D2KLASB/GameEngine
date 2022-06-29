@@ -18,6 +18,8 @@ class Connect():
         if msg:
             if msg == 'READY':
                 print('CONNECTED')
+                # FIX FOR KLAS A
+                # self.publisher.send('READY')
                 return True
 
     def roll_a_dice(self):

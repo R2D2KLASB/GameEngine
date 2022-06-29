@@ -25,7 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
             'local = game_engine.local:main',
-            'lan = game_engine.lan:main'
+            'lan = game_engine.lan:main',
+            'test = game_engine.test:main'
         ],
     },
 )

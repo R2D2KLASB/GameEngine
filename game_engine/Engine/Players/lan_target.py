@@ -1,9 +1,9 @@
 from .player import *
 
 class LANTarget(Player):
-    def __init__(self, row_size, col_size, name, extern_pub, queue):
+    def __init__(self, row_size, col_size, name, publisher, queue):
         super().__init__(row_size, col_size, name)
-        self.extern_pub = extern_pub
+        self.publisher = publisher
         self.queue = queue
 
     def Turn(self, targetPlayer):
@@ -20,10 +20,12 @@ class LANTarget(Player):
         else:
             self.targetBoard.updateBoard(coordinate, 'o')
         return True
-    
 
     def checkDefeated(self):
+        if self.checkAlive == 0:
+            return True
         return False
+    
 
     def checkAlive(self):
         return len(self.shipSizes)
