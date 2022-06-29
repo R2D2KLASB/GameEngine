@@ -9,7 +9,7 @@ class GameEngine():
         self.col_size = col_size
 
     def setupPlayers(self):
-        self.player1 = AIPlayer(self.row_size, self.col_size, 'ai1', False)
+        self.player1 = Player(self.row_size, self.col_size, 'player')
 
         # if 'ai' not in self.player1.name and 'ai' not in self.player2.name:
         #     self.nextPlayer('player2')

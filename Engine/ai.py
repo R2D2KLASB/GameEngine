@@ -5,42 +5,42 @@ import time
 import random
 class AIPlayer(Player):
     def __init__(self, row_size, col_size, name, optimalisation):
-        self.lastMove = 0  # laatste hit: raak etc
-        self.movesTried = []
-        self.move = False
-        self.hittedMoveStart = None  # coord van geraakte hit
-        self.hittedMoveCurrent = None  # hit rondom start hit
+        self.lastMove = 0  # Last tried method for picking a coord
+        self.movesTried = [] # Moves tried, killing a found ship
+        self.move = False # Move is done
+        self.hittedMoveStart = None  # coord of first hit shot(of 1 ship)
+        self.hittedMoveCurrent = None  # Last tried hit, sinking a ship
         self.possibleMoves = [] # List with al the moves that can be done
         self.aiMoves = []  # moves the AI should do with random
         self.movesDone = [] # shots that the ai tried with random
-        self.smallestShip = 2 #smallest ship the opponend can still have
+        self.smallestShip = 2 # smallest ship the opponend can still have
         self.enemyShipsAlive = 0 # number enemy ships alive(needed to check when it kills a new ship)
         self.currentKilling = [] #when hitting a ship, this keeps track of the killed part
         self.optimise = optimalisation # chose a pattern with gaps, lokking at the minimal ship size of opponent
-        self.directionKnown = False #When killing a ship, does the AI know the direction of the ship?
-        self.horizontal = False #when killing a ship, the ai can skip places where the ship is not by the direction of the ship
+        self.directionKnown = False # When killing a ship, does the AI know the direction of the ship?
+        self.horizontal = False # when killing a ship, the ai can skip places where the ship is not by the direction of the ship
         self.coordinate = None
         super().__init__(row_size, col_size, name)
 
-    #Do a move against the other player
+    # Do a move against the other player
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
             self.targetBoard.coordinates += [coordinate]
-            if targetPlayer.enemyAttack(coordinate): #Hit
+            if targetPlayer.enemyAttack(coordinate): # Hit
                 self.targetBoard.updateBoard(coordinate, 'x')
                 return 1
-            else:                                    #Miss
+            else:                                    # Miss
                 self.targetBoard.updateBoard(coordinate, 'o')
                 return 0
-        return -1                                    #Invalid
+        return -1                                    # Invalid
         raise ErrorMessage('Target self.Coordinate already used')
 
-    #Setup the ship board using random places to place a ship
+    # Setup the ship board using random places to place a ship
     def setupBoard(self):
         shipSizes = [5, 4, 3, 3, 2]
         while len(shipSizes) > 0:
             result = False
-            while result is False:                     #Loop until the boats are placed
+            while result is False: # Loop until the boats are placed
                 try:
                     orientation = random.randint(0,1)
                     self.coordinates = []
@@ -66,16 +66,18 @@ class AIPlayer(Player):
                     clear()
                     pass
 
+        # Create a list with all coords
         for i in range(self.row_size):
             for j in range(self.row_size):
                 self.possibleMoves.append([i,j])
                 self.aiMoves.append([i,j])
 
+        # Shuffle the list
         random.shuffle(self.aiMoves)
 
-    #TODO na hit, random keuze waar start met schip killen
-
+    # After every move, this function chooses the next function to pick a coord
     def NextMove(self, first, i):
+        # First
         if first == True:
             move = random.randint(1, 5)
             self.lastMove = move
@@ -115,7 +117,6 @@ class AIPlayer(Player):
                         return self.NextMove(False, i)
                     else:
                         self.lastMove = 0
-                        print("EEEERRRRRROOOOOOORRRRRR")
                         return
                 else:
                     self.lastMove = move
@@ -227,8 +228,6 @@ class AIPlayer(Player):
     #Checks if the next chosen coordinate is valid, if not, choses wich function is best to find a new coordinate
     def CheckCoord(self, targetPlayer):
         if not [self.coordinate.x,self.coordinate.y] in self.possibleMoves:
-            print("fail: " + str(self.coordinate.xy) + " : " + str(self.lastMove))
-            print(self)
             if self.lastMove > 0:
                 self.NextMove(False, 0)
             return 0
@@ -267,16 +266,10 @@ class AIPlayer(Player):
             # If a horizontal ship doesnt fit it must be vertical
             if maxShipSizeH < self.smallestShip-1 and maxShipSizeV >= self.smallestShip-1:
                 self.horizontal = False
-                print("vertical1: " + str(self.coordinate.xy) + str(self.smallestShip -1))
-                print(str(maxShipSizeH))
-                print(self)
                 self.directionKnown = True
 
             # If a vertical ship doesnt fit, it must be horizontal
             if maxShipSizeV < self.smallestShip-1 and maxShipSizeH >= self.smallestShip-1:
-                print("horizontal1: " + str(self.coordinate.xy) + str(self.smallestShip -1))
-                print(str(maxShipSizeV))
-                print(self)
                 self.horizontal = True
                 self.directionKnown = True
 
@@ -295,10 +288,8 @@ class AIPlayer(Player):
                 self.directionKnown = True
                 # if self.coordinate x1 == x2 (Vertical)
                 if self.currentKilling[0][0] == self.currentKilling[1][0]:
-                    print("vertical: " + str(self.coordinate.xy))
                     self.horizontal = False
                 elif self.currentKilling[0][1] == self.currentKilling[1][1]:
-                    print("horizontal: " + str(self.coordinate.xy))
                     self.horizontal = True
 
     #Removes the move from possible moves, if opomisation is True, it removes every useless move from possible moves list
@@ -350,7 +341,6 @@ class AIPlayer(Player):
         self.movesTried.clear()
         self.enemyShipsAlive -= 1
         self.lastMove = 0
-        print(self.name + " killed a ship " + str(self.coordinate.x) + " : " + str(self.coordinate.y))
 
     #Its the AI's turn to play
     def Turn(self, targetPlayer):
@@ -389,12 +379,10 @@ class AIPlayer(Player):
         #Do the move
         if self.move:
             result = self.Attack(targetPlayer, self.coordinate)
-            print(self.name + " Result: " + str(result) + " ; " + str(self.coordinate.xy) + ", "+ str(self.directionKnown) + ", " + str(self.horizontal)+ "lm: " + str(self.lastMove))
         else:
             if self.lastMove > 0:
                 self.NextMove(False, 0)
             return self.Turn(targetPlayer)
-
 
         #Shot was invalid, retry
         if result == -1:
