@@ -1,0 +1,85 @@
+[1.172s] Invoking command in 'c:\Users\marti\Documents\GitHub\GameEngine': PYTHONPATH=c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages;%PYTHONPATH% c:\opt\ros\foxy\x64\python.exe setup.py egg_info --egg-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine build --build-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build install --prefix c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine --record c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log --single-version-externally-managed
+[2.031s] running egg_info
+[2.031s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info
+[2.031s] writing c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\PKG-INFO
+[2.031s] writing dependency_links to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\dependency_links.txt
+[2.031s] writing entry points to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\entry_points.txt
+[2.031s] writing requirements to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\requires.txt
+[2.031s] writing top-level names to c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\top_level.txt
+[2.047s] writing manifest file 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\SOURCES.txt'
+[2.094s] reading manifest file 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\SOURCES.txt'
+[2.094s] writing manifest file 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info\SOURCES.txt'
+[2.109s] running build
+[2.109s] running build_py
+[2.109s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build
+[2.109s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib
+[2.109s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine
+[2.109s] copying game_engine\lan.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine
+[2.109s] copying game_engine\local.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine
+[2.125s] copying game_engine\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine
+[2.125s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine
+[2.125s] copying game_engine/Engine\boards.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine
+[2.141s] copying game_engine/Engine\coordinate.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine
+[2.156s] copying game_engine/Engine\error.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine
+[2.156s] copying game_engine/Engine\gameEngine.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine
+[2.172s] copying game_engine/Engine\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine
+[2.172s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players
+[2.172s] copying game_engine/Engine/Players\ai.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[2.188s] copying game_engine/Engine/Players\lan_ai.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[2.188s] copying game_engine/Engine/Players\lan_player.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[2.203s] copying game_engine/Engine/Players\lan_target.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[2.203s] copying game_engine/Engine/Players\player.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[2.219s] copying game_engine/Engine/Players\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Engine/Players
+[2.234s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Nodes
+[2.234s] copying game_engine/Nodes\listenerNode.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Nodes
+[2.234s] copying game_engine/Nodes\publisherNode.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Nodes
+[2.250s] copying game_engine/Nodes\queue.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Nodes
+[2.250s] copying game_engine/Nodes\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Nodes
+[2.266s] creating c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Connection
+[2.266s] copying game_engine/Connection\connect.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Connection
+[2.266s] copying game_engine/Connection\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine/Connection
+[2.281s] running install
+[2.281s] running install_lib
+[2.281s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine
+[2.281s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Connection
+[2.281s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Connection\connect.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Connection
+[2.297s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Connection\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Connection
+[2.297s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine
+[2.297s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\boards.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine
+[2.297s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\coordinate.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine
+[2.297s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\error.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine
+[2.297s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\gameEngine.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine
+[2.313s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.313s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\ai.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.313s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\lan_ai.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.328s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\lan_player.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.328s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\lan_target.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.328s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\player.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.328s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\Players\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine\Players
+[2.344s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Engine\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Engine
+[2.344s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\lan.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine
+[2.344s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\local.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine
+[2.344s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Nodes
+[2.344s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Nodes\listenerNode.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Nodes
+[2.359s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Nodes\publisherNode.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Nodes
+[2.359s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Nodes\queue.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Nodes
+[2.359s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\Nodes\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine\Nodes
+[2.359s] copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build\lib\game_engine\__init__.py -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine
+[2.375s] writing byte-compilation script 'C:\Users\marti\AppData\Local\Temp\tmpi1_ab58x.py'
+[2.375s] c:\opt\ros\foxy\x64\python.exe C:\Users\marti\AppData\Local\Temp\tmpi1_ab58x.py
+[2.609s] removing C:\Users\marti\AppData\Local\Temp\tmpi1_ab58x.py
+[2.609s] running install_data
+[2.609s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\ament_index
+[2.609s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\ament_index\resource_index
+[2.609s] creating c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\ament_index\resource_index\packages
+[2.609s] copying resource\game_engine -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\ament_index\resource_index\packages
+[2.609s] copying package.xml -> c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine
+[2.609s] running install_egg_info
+[2.625s] Copying c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\game_engine.egg-info to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages\game_engine-0.0.0-py3.8.egg-info
+[2.656s] running install_scripts
+[2.703s] Installing lan-script.py script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.719s] Installing lan.exe script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.719s] Installing local-script.py script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.719s] Installing local.exe script to c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\game_engine
+[2.734s] writing list of installed files to 'c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log'
+[2.766s] Invoked command in 'c:\Users\marti\Documents\GitHub\GameEngine' returned '0': PYTHONPATH=c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages;%PYTHONPATH% c:\opt\ros\foxy\x64\python.exe setup.py egg_info --egg-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine build --build-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build install --prefix c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine --record c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log --single-version-externally-managed

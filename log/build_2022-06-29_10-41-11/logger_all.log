@@ -1,0 +1,77 @@
+[1.905s] [34mcolcon[0m [1;30mDEBUG[0m [32mCommand line arguments: ['c:\\opt\\ros\\foxy\\x64\\Scripts\\colcon', 'build'][0m
+[1.906s] [34mcolcon[0m [1;30mDEBUG[0m [32mParsed command line arguments: Namespace(ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x0000024772547580>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x0000024772547580>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x0000024772547A30>)[0m
+[2.018s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) check parameters
+[2.019s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) check parameters
+[2.019s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) check parameters
+[2.019s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) check parameters
+[2.019s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) discover
+[2.019s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) discover
+[2.019s] [34mcolcon.colcon_core.package_discovery[0m [1;30mINFO[0m Crawling recursively for packages in 'c:\Users\marti\Documents\GitHub\GameEngine'
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ignore', 'ignore_ament_install']
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore'
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore_ament_install'
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_pkg']
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_pkg'
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_meta']
+[2.020s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_meta'
+[2.021s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ros']
+[2.021s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ros'
+[2.085s] [34mcolcon.colcon_core.package_identification[0m [1;30mDEBUG[0m [32mPackage '.' with type 'ros.ament_python' and name 'game_engine'[0m
+[2.085s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) using defaults
+[2.086s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) discover
+[2.086s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) using defaults
+[2.086s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) discover
+[2.086s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) using defaults
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'cmake_args' from command line to 'None'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'cmake_target' from command line to 'None'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'cmake_clean_cache' from command line to 'False'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'cmake_clean_first' from command line to 'False'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'cmake_force_configure' from command line to 'False'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'ament_cmake_args' from command line to 'None'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'catkin_cmake_args' from command line to 'None'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'game_engine' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.136s] [34mcolcon.colcon_core.verb[0m [1;30mDEBUG[0m [32mBuilding package 'game_engine' with the following arguments: {'ament_cmake_args': None, 'build_base': 'c:\\Users\\marti\\Documents\\GitHub\\GameEngine\\build\\game_engine', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': 'c:\\Users\\marti\\Documents\\GitHub\\GameEngine\\install\\game_engine', 'merge_install': False, 'path': 'c:\\Users\\marti\\Documents\\GitHub\\GameEngine', 'symlink_install': False, 'test_result_base': None}[0m
+[2.140s] [34mcolcon.colcon_core.executor[0m [1;30mINFO[0m Executing jobs using 'parallel' executor
+[2.174s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete[0m
+[2.175s] [34mcolcon.colcon_ros.task.ament_python.build[0m [1;30mINFO[0m Building ROS package in 'c:\Users\marti\Documents\GitHub\GameEngine' with build type 'ament_python'
+[2.176s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('game_engine', 'ament_prefix_path')
+[2.194s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_core.shell.sh': Not used on Windows systems
+[2.194s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\hook\ament_prefix_path.ps1'
+[2.208s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\hook\ament_prefix_path.bat'
+[2.231s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\hook\ament_prefix_path.dsv'
+[2.248s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.269s] [34mcolcon.colcon_ros.prefix_path.catkin[0m [1;30mWARNING[0m [33mThe path 'C:\opt\ros\foxy\x64\tools\vcpkg\installed\x64-windows' in the environment variable CMAKE_PREFIX_PATH doesn't exist[0m
+[3.233s] [34mcolcon.colcon_core.task.python.build[0m [1;30mINFO[0m Building Python package in 'c:\Users\marti\Documents\GitHub\GameEngine'
+[3.242s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.352s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in 'c:\Users\marti\Documents\GitHub\GameEngine': PYTHONPATH=c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages;%PYTHONPATH% c:\opt\ros\foxy\x64\python.exe setup.py egg_info --egg-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine build --build-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build install --prefix c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine --record c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log --single-version-externally-managed[0m
+[4.950s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoked command in 'c:\Users\marti\Documents\GitHub\GameEngine' returned '0': PYTHONPATH=c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages;%PYTHONPATH% c:\opt\ros\foxy\x64\python.exe setup.py egg_info --egg-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine build --build-base c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\build install --prefix c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine --record c:\Users\marti\Documents\GitHub\GameEngine\build\game_engine\install.log --single-version-externally-managed[0m
+[4.983s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine' for CMake module files
+[4.985s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine' for CMake config files
+[4.989s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\bin'
+[4.989s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\bin'
+[4.990s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Scripts'
+[4.990s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\lib\pkgconfig\game_engine.pc'
+[4.990s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\Lib\site-packages'
+[4.990s] [34mcolcon.colcon_core.shell[0m [1;30mLevel 1[0m create_environment_hook('game_engine', 'pythonpath')
+[4.998s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\hook\pythonpath.ps1'
+[5.000s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment hook 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\hook\pythonpath.bat'
+[5.003s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating environment descriptor 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\hook\pythonpath.dsv'
+[5.005s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_environment_scripts_only(game_engine)
+[5.015s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\package.ps1'
+[5.028s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\package.bat'
+[5.039s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package descriptor 'c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\game_engine\package.dsv'
+[5.048s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_file_with_runtime_dependencies(c:\Users\marti\Documents\GitHub\GameEngine\install\game_engine\share\colcon-core\packages\game_engine)
+[5.050s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete finished with '0'[0m
+[5.050s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoining thread[0m
+[5.076s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.notify2': 'notify2' not found
+[5.077s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.notify_send': Not used on non-Linux systems
+[5.077s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[5.077s] [34mcolcon.colcon_notification.desktop_notification[0m [1;30mINFO[0m Sending desktop notification using 'win32'
+[10.218s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoined thread[0m
+[10.236s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script 'c:\Users\marti\Documents\GitHub\GameEngine\install\local_setup.ps1'
+[10.249s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module 'c:\Users\marti\Documents\GitHub\GameEngine\install\_local_setup_util_ps1.py'
+[10.261s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script 'c:\Users\marti\Documents\GitHub\GameEngine\install\setup.ps1'
+[10.284s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script 'c:\Users\marti\Documents\GitHub\GameEngine\install\local_setup.bat'
+[10.302s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module 'c:\Users\marti\Documents\GitHub\GameEngine\install\_local_setup_util_bat.py'
+[10.304s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script 'c:\Users\marti\Documents\GitHub\GameEngine\install\setup.bat'

@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4a7eddcf-b754-44af-aa48-576609758bd9" name="Changes" comment="AI update: shot choice improved, boolean choice for smart hitting">
-      <change beforePath="$PROJECT_DIR$/Nieuwe map/Engine/ai.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_engine/Engine/Players/ai.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_engine/Engine/Players/ai.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_engine/lan.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_engine/lan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_engine/local.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_engine/local.py" afterDir="false" />
-    </list>
+    <list default="true" id="4a7eddcf-b754-44af-aa48-576609758bd9" name="Changes" comment="AI update: shot choice improved, boolean choice for smart hitting" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +66,7 @@
       <workItem from="1655977991274" duration="16902000" />
       <workItem from="1656059751339" duration="4185000" />
       <workItem from="1656066314824" duration="36000" />
+      <workItem from="1656491841073" duration="62000" />
     </task>
     <task id="LOCAL-00001" summary="documentation">
       <created>1655801400291</created>
