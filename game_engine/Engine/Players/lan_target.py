@@ -8,6 +8,7 @@ class LANTarget(Player):
 
     def Turn(self, targetPlayer):
         print('\nWaiting on next move from the other player...')
+        publiser['intern'].send('TEXT Waiting on enemy move..')
         msg = self.queue.read(wait=True)
         clear()
         self.Attack(targetPlayer, Coordinate(msg, self.row_size, self.col_size))

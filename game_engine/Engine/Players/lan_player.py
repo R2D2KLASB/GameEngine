@@ -3,8 +3,8 @@ from ..coordinate import Coordinate
 import time
 
 class LANPlayer(Player):
-    def __init__(self, row_size, col_size, name, publisher, queue):
-        super().__init__(row_size, col_size, name)
+    def __init__(self, row_size, col_size, name, publisher, queue, camera):
+        super().__init__(row_size, col_size, name, camera)
         self.publisher = publisher
         self.queue = queue
         # self.intern_pub.send(str([ship for ship in self.shipBoard.ships]))
@@ -40,7 +40,7 @@ class LANPlayer(Player):
                 self.publish['gcode'].send('G8 P1')
                 self.targetBoard.updateBoard(coordinate, 'x')
             return True
-        raise ErrorMessage('Target Coordinate already used')
+        raise ErrorMessage('Target Coordinate already used', self.publisher['intern'])
 
     def enemyAttack(self, coordinate):
         result = super().enemyAttack(coordinate)

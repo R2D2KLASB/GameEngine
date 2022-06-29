@@ -5,11 +5,12 @@ Engine = 'game_engine/Engine'
 Players = 'game_engine/Engine/Players'
 Nodes = 'game_engine/Nodes'
 Connect = 'game_engine/Connection'
+Camera = 'game_engine/Camera'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name,Engine,Players,Nodes,Connect],
+    packages=[package_name,Engine,Players,Nodes,Connect, Camera],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),

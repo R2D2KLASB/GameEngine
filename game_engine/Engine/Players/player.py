@@ -1,16 +1,17 @@
 from ..coordinate import *
 from ..boards import *
 from ..error import *
+from ...Camera import *
 
 class Player():
-    def __init__(self, row_size, col_size, name, shiplist=False):
+    def __init__(self, row_size, col_size, name, camera=False):
         self.shipBoard = shipBoard(row_size,col_size)
         self.targetBoard = targetBoard(row_size,col_size)
         self.row_size = row_size
         self.col_size = col_size
         self.name = name
-        self.shiplist = shiplist
-        self.shipSizes = [2,3]
+        self.camera = camera
+        self.shipSizes = [2, 3, 3, 4, 5]
         self.countShips = len(self.shipSizes)
         self.targetDefeated = 0
         self.setupBoard()
@@ -20,14 +21,16 @@ class Player():
             result = False
             while result is False:
                 try:
-                    if self.shiplist:
-                        for ship in self.shiplist:
-                            coordinates = [Coordinate(coordinate, self.row_size, self.col_size) for cordinate in ship]
+                    if self.camera:
+                        shiplist = webcam_detection()
+                        for ship in shiplist:
+                            coordinates = [Coordinate([coordinate[1], coordinate[0]], self.row_size, self.col_size) for coordinate in ship]
                             if len(coordinates) in self.shipSizes:
                                 result = self.shipBoard.createShip(coordinates)
                                 self.shipSizes.remove(len(coordinates))
-                        else:
-                            raise ErrorMessage("Error ship size")
+                            else:
+                                self.shipSizes = [2, 3, 3, 4, 5]
+                                raise ErrorMessage("Error image detection.. Try again")
                     else:
                         print('\n' + self.name + ' Setup Ships')
                         print(self.shipBoard)
