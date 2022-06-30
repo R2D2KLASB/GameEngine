@@ -8,7 +8,7 @@ class Coordinate():
             self.x = coordinate[0]
             self.y = coordinate[1]
             self.xy = [self.x,self.y]
-            self.str = chr(ord('A') + self.x-1) + str(self.y)
+            self.str = chr(ord('A') + self.x) + str(self.y+1)
         elif self.validateStrCoordinate(coordinate):
             self.x = ord(coordinate[0])-ord('A')
             self.y = int(coordinate[1:])-1

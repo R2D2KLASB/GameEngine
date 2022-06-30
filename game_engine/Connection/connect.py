@@ -1,12 +1,14 @@
 import time
 import random
 import os
+from ..Engine import *
 
 class Connect():
-    def __init__(self, player, queue, publisher):
+    def __init__(self, player, queue, publisher, internCom):
         self.player = player
         self.queue = queue
         self.publisher = publisher
+        self.internCom = internCom
 
     def wait_connection(self):
         count = 0
@@ -38,6 +40,17 @@ class Connect():
                 return False
             else:
                 print('It\'s a tie, rolling again..')
+
+    def getPos(self):
+        if internCOm:
+            self.publisher['intern'].send('getPos')
+            self.queue.read(wait=True)
+            self.publisher['intern'].send('ok')
+            coordinate = self.queue.read(wait=True)
+            coordinate = coordinate.strip('][').split(',')
+            coordinate = Coordinate([int(coordinate[0]),int(coordinate[1])],self.row_size, self.col_size)
+            return coordinate
+        return False
             
 
 

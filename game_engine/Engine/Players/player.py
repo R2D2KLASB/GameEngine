@@ -2,6 +2,7 @@ from ..coordinate import *
 from ..boards import *
 from ..error import *
 from ...Camera import *
+import time
 
 class Player():
     def __init__(self, row_size, col_size, name, camera=False):
@@ -11,7 +12,7 @@ class Player():
         self.col_size = col_size
         self.name = name
         self.camera = camera
-        self.shipSizes = [2, 3]
+        self.shipSizes = [2, 3, 3, 4, 5]
         self.countShips = len(self.shipSizes)
         self.targetDefeated = 0
         self.setupBoard()
@@ -22,7 +23,7 @@ class Player():
             while result is False:
                 try:
                     if self.camera:
-                        shiplist = webcam_detection()
+                        shiplist = self.camera.webcam_detection()
                         for ship in shiplist:
                             coordinates = [Coordinate([coordinate[1], coordinate[0]], self.row_size, self.col_size) for coordinate in ship]
                             if len(coordinates) in self.shipSizes:
@@ -30,6 +31,7 @@ class Player():
                                 self.shipSizes.remove(len(coordinates))
                             else:
                                 self.shipSizes = [2, 3, 3, 4, 5]
+                                self.shipBoard.ships = []
                                 raise ErrorMessage("Error image detection.. Try again")
                     else:
                         print('\n' + self.name + ' Setup Ships')
@@ -57,7 +59,7 @@ class Player():
                 print(self)
                 coordinate = Coordinate(input("Attack Coordinate:").upper(), self.row_size, self.col_size)
                 result = self.Attack(targetPlayer, coordinate)
-                clear()
+                # clear()
                 print(self)
             except Exception as e:
                 clear()
@@ -71,7 +73,7 @@ class Player():
             result = targetPlayer.enemyAttack(coordinate)
             if result == 'HIT':
                 self.targetBoard.updateBoard(coordinate, 'x')
-            elif result == 'MIS':
+            elif result == 'MISS':
                 self.targetBoard.updateBoard(coordinate, 'o')
             elif result == 'SUNK':
                 self.targetBoard.updateBoard(coordinate, 'x')

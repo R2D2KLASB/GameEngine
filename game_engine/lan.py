@@ -1,23 +1,30 @@
 from .Engine import *
 from .Nodes import *
 from .Connection import *
+from .Camera import *
 import rclpy
 import sys
 import time
 import threading
 
 
-def play(player, queue, publisher, size, camera=False):
+def play(player, queue, publisher, size, ros, camera=False):
     clear()
+    time.sleep(2)
     publisher['intern'].send('READY')
-    publisher['gcode'].send('G3')
+    # publisher['gcode'].send('G3\n')
 
-    gameEngine = GameEngine(size)
-    
+    if camera:
+        if ros:
+            camera = ShipDetection(queue, publisher)
+        else:
+            camera = ShipDetection()
+
     player1 = LANPlayer(size[0], size[1], 'Player', publisher, queue, camera) if player == 'console' else AIPlayer(size[0], size[1], 'ai')
     
     player2 = LANTarget(size[0], size[1], 'target', publisher, queue)
 
+    gameEngine = GameEngine(size)
 
     connection = Connect(player, queue, publisher['extern'])
     if connection.wait_connection():
@@ -50,10 +57,16 @@ def main(args=None):
         publisher['extern'] = Publisher('extern_publisher', 'game_info/'+('B' if player == 'A' else 'A'))
         listener['extern'] = Listener('extern_listener', 'game_info/'+player, extern_queue)
 
+        ros = False
+
         if par[-1] == 'B':
-            publisher['intern'] = Publisher('intern_publisher', 'game_info/intern/publish')
-            publisher['gcode'] = Publisher('gcode_publisher', 'game_info/intern/gcode')
             camera = False
+            if ros:
+                publisher['intern'] = Publisher('intern_publisher', 'game_info/intern/publish')
+                publisher['gcode'] = Publisher('gcode_publisher', 'game_info/intern/gcode')
+            else:
+                publisher['intern'] = Publisher('intern_publisher', 'game_info/intern/publish_test')
+                publisher['gcode'] = Publisher('gcode_publisher', 'game_info/intern/gcode_test')
 
         elif par[-1] == 'A':
             publisher['intern'] = Publisher('intern_publisher', 'game_info/intern/test_publish')
@@ -61,7 +74,7 @@ def main(args=None):
             camera = False
 
         t1 = threading.Thread(target=rclpy.spin, args=(listener['extern'],))
-        t2 = threading.Thread(target=play, args=(par[-2], extern_queue, publisher, size, camera))
+        t2 = threading.Thread(target=play, args=(par[-2], extern_queue, publisher, size,ros, camera))
 
     
         t1.start()

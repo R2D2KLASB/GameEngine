@@ -12,16 +12,20 @@ class Queue():
             time.sleep(0.1)
 
     def read(self, wait=False):
-        if not self.queue and not wait:
+        if not self.queue and wait == False:
             return False
         elif wait:
             self.wait()
         key = self.queue[0]
+        # FIX VOOR MATRIX
+        if key == 'ok':
+            self.queue.pop(0)
+            return self.read(wait)
         self.queue.pop(0)
         return key
     
     def read_all(self, wait=False):
-        if not self.queue and not wait:
+        if not self.queue and wait == False:
             return False
         elif wait:
             self.wait()
