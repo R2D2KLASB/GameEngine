@@ -4,7 +4,7 @@ import time
 
 import random
 class AIPlayer(Player):
-    def __init__(self, row_size, col_size, name, camera, optimalisation=True):
+    def __init__(self, row_size, col_size, name, optimalisation=True):
         self.lastMove = 0  # Last tried method for picking a coord
         self.movesTried = [] # Moves tried, killing a found ship
         self.move = False # Move is done
@@ -20,7 +20,7 @@ class AIPlayer(Player):
         self.directionKnown = False # When killing a ship, does the AI know the direction of the ship?
         self.horizontal = False # when killing a ship, the ai can skip places where the ship is not by the direction of the ship
         self.coordinate = None
-        super().__init__(row_size, col_size, name, camera)
+        super().__init__(row_size, col_size, name)
 
     #Do a move against the other player
     def Attack(self, targetPlayer, coordinate):
