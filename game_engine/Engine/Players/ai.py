@@ -20,6 +20,7 @@ class AIPlayer(Player):
         self.directionKnown = False # When killing a ship, does the AI know the direction of the ship?
         self.horizontal = False # when killing a ship, the ai can skip places where the ship is not by the direction of the ship
         self.coordinate = None
+        self.enemyShips = [5,4,3,3,2]
         super().__init__(row_size, col_size, name)
 
     #Do a move against the other player
@@ -168,11 +169,11 @@ class AIPlayer(Player):
         # If shoot optimisation is true, the ai chooses the coords to shoot by looking at the smallest ship of the opponent
         if self.optimise:
             smallest = 10
-            for s in targetPlayer.shipBoard.ships:  # Update the smallest ship variable
-                if s.size < smallest:
-                    smallest = s.size
+            for s in self.enemyShips:  # Update the smallest ship variable
+                if s < smallest:
+                    smallest = s
 
-            if smallest < self.smallestShip:
+            if smallest > self.smallestShip:
                 self.smallestShip = smallest
                 self.UpdateAIMoves(False)  # add the smartest moves at this moment to the AImoves list
 

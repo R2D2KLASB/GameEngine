@@ -16,7 +16,7 @@ class LANAI(AIPlayer):
         if coordinate not in self.targetBoard.coordinates:
             self.targetBoard.coordinates += [coordinate]
             msg = self.connect.sendFire(coordinate)
-            clear()
+            # clear()
             print(self)
             if msg == 'HIT':
                 self.connect.getHit(coordinate)
@@ -30,6 +30,41 @@ class LANAI(AIPlayer):
                 self.connect.getMiss(coordinate)
                 self.targetBoard.updateBoard(coordinate, 'x')
                 self.targetDefeated += 1
+                targetPlayer.shipSizes.remove(targetPlayer.shipSizes[0])
+                coords = []
+                for i in range(self.row_size):
+                    if coordinate.y + i < 10:
+                        if self.targetBoard.board[coordinate.x][coordinate.y + i] == 'x':
+                            if not [coordinate.x,coordinate.y + i] in coords:
+                                coords.append([coordinate.x + i,coordinate.y])
+                        else:
+                            break;
+                for i in range(self.row_size):
+                    if coordinate.y - i >= 0:
+                        if self.targetBoard.board[coordinate.x][coordinate.y - i] == 'x':
+                            if not [coordinate.x, coordinate.y - i] in coords:
+                                coords.append([coordinate.x - i,coordinate.y])
+                        else:
+                            break;
+                for i in range(self.row_size):
+                    if coordinate.x + i < 10:
+                        if self.targetBoard.board[coordinate.x + i][coordinate.y] == 'x':
+                            if not [coordinate.x + i, coordinate.y] in coords:
+                                coords.append([coordinate.x,coordinate.y + i])
+                        else:
+                            break;
+                for i in range(self.row_size):
+                    if coordinate.x - i >= 0:
+                        if self.targetBoard.board[coordinate.x - i][coordinate.y] == 'x':
+                            if not [coordinate.x - 1, coordinate.y] in coords:
+                                coords.append([coordinate.x - i, coordinate.y])
+                        else:
+                            break;
+                print("Ship sunk: " + str(coords))
+                if len(coords) in self.enemyShips:
+                    print(len(coords)-1)
+                    self.enemyShips.remove(len(coords)-1)
+
                 return 1
             elif msg == 'LOSE':
                 self.connect.getLose(coordinate)
@@ -48,5 +83,5 @@ class LANAI(AIPlayer):
             self.connect.sendSunk(coordinate)
         elif result == 'MISS':
             self.connect.sendMiss(coordinate)
-        clear()
+        # clear()
         print(self)
