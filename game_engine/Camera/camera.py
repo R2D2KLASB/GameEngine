@@ -1,13 +1,18 @@
+## @package game_engine.Camera.camera
+# An interface for detecting a playing field and ships 
+
 import time
 import cv2
 import numpy as np
 
-
 class ShipDetection:
+    ## constructor
     def __init__(self, queue=False, publisher=False):
         self.queue = queue
         self.publisher = publisher
 
+    ## shows a preview of the selected camera source.
+    ## closes preview and returns the current 1920 x 1080 frame when spacebar is pressed.
     def select_frame(self):
         cv2.namedWindow("preview")
         #Select Source
@@ -38,6 +43,8 @@ class ShipDetection:
                 cv2.destroyAllWindows()
                 return frame
 
+    ## applies perspective warping to an image
+    ## takes an image and 4 coordinates as input and outputs a 804 x 804 square image
     def get_perspective(self, img, location, height = 804, width = 804):
         loc_index = list(range(4))
 
@@ -86,6 +93,7 @@ class ShipDetection:
         result = cv2.warpPerspective(img, matrix, (width, height))
         return result
 
+    ## detects a playing board by using contours
     def detect_board(self, image):
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         bilateral_filtered = cv2.bilateralFilter(gray_image, 13, 20, 20)
@@ -111,9 +119,9 @@ class ShipDetection:
         # cv2.waitKey()
         return result, location
 
+    ## Takes an image of the playing board and split it into 100 cells (10 x 10).
+    ## each cell contains an element of that board that is either occupied or an empty cell.
     def split_boxes(self, board):
-        """Takes an image of the board and split it into 100 cells (10 x 10).
-        each cell contains an element of that board is either occupied or an empty cell."""
         rows = np.vsplit(board, 12)
         del rows[-1]
         del rows[0]
@@ -128,6 +136,8 @@ class ShipDetection:
                 # cv2.waitKey()
         return boxes
 
+    ## Check each cell if it is occupied or empty.
+    ## returns an array with a shape of (10, 10) with 1 for occupied and 0 for empty
     def create_2D_field(self, boxes):
         field = np.arange(100)
         field = field.reshape((10, 10))
@@ -153,6 +163,8 @@ class ShipDetection:
         # print(field)
         return field
 
+    ## Detect boats in a 2-D array
+    ## returns an list containing found boats
     def get_boats(self, field):
         coorinates_checked = []
         boats = []
@@ -187,13 +199,9 @@ class ShipDetection:
         # for boat in boats:
         #     print(boat)
         return boats
-
+    
+    ## detect and returns a list of boats from input image
     def detect_and_return_boats(self, image):
-        # use this to make frame with webcam
-        # frame = select_frame()
-        # board, location = detect_board(frame)
-
-        # use this for premade frame
         board, location = self.detect_board(image)
 
         gray_image = cv2.cvtColor(board, cv2.COLOR_BGR2GRAY)
@@ -203,13 +211,10 @@ class ShipDetection:
 
         return boat_list
 
+    ## detect and returns a list of boats from captured frame
     def webcam_detection(self):
-        # use this to make frame with webcam
         frame = self.select_frame()
         board, location = self.detect_board(frame)
-
-        # use this for premade frame
-        # board, location = detect_board(image)
 
         gray_image = cv2.cvtColor(board, cv2.COLOR_BGR2GRAY)
         boxes = self.split_boxes(gray_image)
