@@ -1,5 +1,6 @@
 from .player import *
 
+# copy of the player class with a few tweaks in some functions to be able to play over lan
 class LANTarget(Player):
     def __init__(self, row_size, col_size, name, publisher, queue):
         super().__init__(row_size, col_size, name)

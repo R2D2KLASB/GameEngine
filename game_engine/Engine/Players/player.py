@@ -5,6 +5,7 @@ from ...Camera import *
 import time
 
 class Player():
+    # initializes the player, board size specified, player name and the use of camera as bool
     def __init__(self, row_size, col_size, name, camera=False):
         self.shipBoard = shipBoard(row_size,col_size)
         self.targetBoard = targetBoard(row_size,col_size)
@@ -17,6 +18,8 @@ class Player():
         self.targetDefeated = 0
         self.setupBoard()
 
+    # the setup of the board. It will use the camera if specified, else it will use given coordinates by typing in console
+    # there are checks if all boats specified are setup
     def setupBoard(self):
         while len(self.shipSizes) > 0:
             result = False
@@ -50,6 +53,7 @@ class Player():
                     pass
         print(self)
 
+    # turn function to give where you want to place your missile
     def Turn(self, targetPlayer):
         # clear()
         print('It\'s your turn!')
@@ -66,7 +70,8 @@ class Player():
                 print(e)
                 pass
                 
-    
+    # attack function to check if given coordinate is a hit or miss and if the boat has sunk
+    # given target player is the opponent
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
             self.targetBoard.coordinates += [coordinate]
@@ -81,6 +86,7 @@ class Player():
             return True
         raise ErrorMessage('Target Coordinate already used')
     
+    # enemy attack to return to opponent if he/she hitted or missed
     def enemyAttack(self, coordinate):
         tmpAlive = self.checkAlive()
         self.shipBoard.targetcoordinates += [coordinate]
@@ -98,13 +104,15 @@ class Player():
             self.shipBoard.updateBoard(coordinate, 'o')
             return 'MISS'
 
+    # check if all ships are defeated
     def checkDefeated(self):
         return all(ship.defeated for ship in self.shipBoard.ships)
 
+    # give the numbers of boats still alive
     def checkAlive(self):
         return sum([not ship.defeated for ship in self.shipBoard.ships])
         
-
+    # general print for printing the boards with ships alive or defeated
     def __str__(self):
         string = '\n' + self.name + ':\n\nShipboard:                      Targetboard:\n'
         for row in range(self.row_size+1):

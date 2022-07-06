@@ -2,6 +2,7 @@ from .player import *
 from ..coordinate import Coordinate
 import time
 
+# copy of the player class with a few tweaks in some functions to be able to play over lan
 class LANPlayer(Player):
     def __init__(self, row_size, col_size, name, connect, camera):
         super().__init__(row_size, col_size, name, camera)
