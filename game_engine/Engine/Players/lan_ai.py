@@ -6,12 +6,13 @@ class LANAI(AIPlayer):
         super().__init__(row_size, col_size, name, optimalisation)
         self.connect = connect
         self.connect.PublishSetup(self.shipBoard.ships)
-        
 
+    # Setup AI's ship board
     def setupBoard(self):
         super().setupBoard()
         print(self)
 
+    # Lan version of attacking opponent
     def Attack(self, targetPlayer, coordinate):
         if coordinate not in self.targetBoard.coordinates:
             self.targetBoard.coordinates += [coordinate]
@@ -32,6 +33,11 @@ class LANAI(AIPlayer):
                 self.targetDefeated += 1
                 targetPlayer.shipSizes.remove(targetPlayer.shipSizes[0])
                 coords = []
+
+                # The lan AI has no acces to the enemy ship board and ships
+                # After sinking a ship, the AI needs to update smallest ship varible
+                # This code checks the size of the sunk ship
+
                 for i in range(self.row_size):
                     if coordinate.y + i < 10:
                         if self.targetBoard.board[coordinate.x][coordinate.y + i] == 'x':
@@ -64,8 +70,8 @@ class LANAI(AIPlayer):
                 if len(coords) in self.enemyShips:
                     print(len(coords)-1)
                     self.enemyShips.remove(len(coords)-1)
-
                 return 1
+
             elif msg == 'LOSE':
                 self.connect.getLose(coordinate)
                 self.targetBoard.updateBoard(coordinate, 'x')
